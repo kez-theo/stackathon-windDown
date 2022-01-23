@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {User, Activity} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -9,14 +9,36 @@ const {db, models: {User} } = require('../server/db')
 async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
-
-  // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
-
+    User.create({ username: 'cody', password: '123', bedtime: 1260 }),
+    User.create({ username: 'murphy', password: '123', bedtime: 1380 }),
+  ]);
+  const activities = await Promise.all([
+    Activity.create({ name: 'stretch', duration: '30', time: 0}),
+    Activity.create({ name: 'read book', duration: '45', time: 0}),
+    Activity.create({ name: 'fold laundry', duration: '15', time: 0}),
+    Activity.create({ name: 'knit', duration: '30', time: 0}),
+    Activity.create({ name: 'chat to friend', duration: '30', time: 0}),
+  ]);
+  const [
+    cody,
+    murphy,
+  ] = users;
+  const [
+    stretch,
+    readBook,
+    foldLaundry,
+    knit,
+    chatToFriend
+  ] = activities;
+  await foldLaundry.setUser(cody)
+  await stretch.setUser(cody)
+  await knit.setUser(cody)
+  await chatToFriend.setUser(murphy)
+  await readBook.setUser(murphy)
+  
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${activities.length} users`)
   console.log(`seeded successfully`)
   return {
     users: {
