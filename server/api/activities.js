@@ -11,9 +11,8 @@ router.get("/", requireToken, async (req, res, next) => {
       where: {
         userId: req.user.id,
       },
-      attributes: ["name", "duration", "time"],
+      attributes: ["id", "name", "duration", "time"],
     });
-    console.log(req.headers)
     res.json(routine);
   } catch (err) {
     next(err);

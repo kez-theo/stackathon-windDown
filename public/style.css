@@ -81,9 +81,17 @@ button:hover {
   align-items: center;
 }
 
+.routine {
+  display: inline-flex;
+}
+
+.routine-item {
+  display: inline-flex;
+  padding-right: 20px;
+}
+
 .column {
   display: flex;
-
 }
 
 h1, h2, h3, h4, h5, h6, p {

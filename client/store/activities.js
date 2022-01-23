@@ -31,7 +31,7 @@ const initialState = [];
 export default function routineReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ROUTINE:
-      return action.activities;
+      return action.routine;
     default:
       return state;
   }

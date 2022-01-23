@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import { fetchRoutine } from "../store/activities";
 
-class Routine extends React.Component {
+class EditRoutine extends React.Component {
   componentDidMount() {
     this.props.fetchRoutine()
   }
@@ -11,6 +11,9 @@ class Routine extends React.Component {
     const routine = this.props.routine || [];
     return (
       <>
+        <div>
+          <h1>My Routine</h1>
+        </div>
         <div>
           {routine.map((activity) => (
             <div key={activity.id}>
@@ -34,4 +37,4 @@ const mapDispatch = (dispatch) => ({
   fetchRoutine: () => dispatch(fetchRoutine()),
 });
 
-export default connect(mapState, mapDispatch)(Routine);
+export default connect(mapState, mapDispatch)(EditRoutine);

@@ -1,15 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import UserRoutine from './UserRoutine'
 
 /**
  * COMPONENT
  */
 export const Home = props => {
-  const {username} = props
+  const {username, bedtime} = props
+  console.log(props)
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h2>Welcome, {username}!</h2>
+      <h2>Your bedtime is {bedtime}</h2>
+      <UserRoutine />
     </div>
   )
 }
@@ -19,7 +23,8 @@ export const Home = props => {
  */
 const mapState = state => {
   return {
-    username: state.auth.username
+    username: state.auth.username,
+    bedtime: state.auth.bedtime,
   }
 }
 
