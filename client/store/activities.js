@@ -6,9 +6,9 @@ const TOKEN = "token";
 const GET_ROUTINE = "GET_ROUTINE";
 
 //ACTION CREATORS
-export const getRoutine = (activities) => ({
+export const getRoutine = (routine) => ({
   type: GET_ROUTINE,
-  activities,
+  routine,
 });
 
 export const fetchRoutine = () => {
