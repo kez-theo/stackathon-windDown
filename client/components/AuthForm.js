@@ -23,10 +23,10 @@ const AuthForm = props => {
           </label>
           <input name="password" type="password" />
         </div>
-        <div>
+        <div className="container">
           <button type="submit">{displayName}</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {error && error.response && <h4 style={{display: 'flex', justifyContent: 'center'}}> {error.response.data} </h4>}
       </form>
     </div>
   )

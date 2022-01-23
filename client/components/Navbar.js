@@ -1,29 +1,30 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>FS-App-Template</h1>
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <NavLink className="navItem" to="/home">Wind Down</NavLink>
+          <div className="nav-right">
+            <NavLink className="navItem" to="/#" onClick={handleClick}>Logout</NavLink>
+          </div>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <NavLink className="navItem" to="/login">Wind Down</NavLink>
+          <div className="nav-right">
+            <NavLink className="navItem" to="/login">Login</NavLink>
+            <NavLink className="navItem" to="/signup">Sign Up</NavLink>
+          </div>
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 
