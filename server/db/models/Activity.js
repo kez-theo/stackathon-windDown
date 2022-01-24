@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Activity = db.define('activity', {
-  name: {
+  activityName: {
     type: Sequelize.STRING,
   },
   duration: {

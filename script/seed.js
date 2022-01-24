@@ -12,13 +12,14 @@ async function seed() {
   const users = await Promise.all([
     User.create({ username: 'cody', password: '123', bedtime: 1260 }),
     User.create({ username: 'murphy', password: '123', bedtime: 1380 }),
+    User.create({ username: 'timmy', password: '123'}),
   ]);
   const activities = await Promise.all([
-    Activity.create({ name: 'stretch', duration: '30', time: 0}),
-    Activity.create({ name: 'read book', duration: '45', time: 0}),
-    Activity.create({ name: 'fold laundry', duration: '15', time: 0}),
-    Activity.create({ name: 'knit', duration: '30', time: 0}),
-    Activity.create({ name: 'chat to friend', duration: '30', time: 0}),
+    Activity.create({ activityName: 'stretch', duration: '30', time: 0}),
+    Activity.create({ activityName: 'read book', duration: '45', time: 0}),
+    Activity.create({ activityName: 'fold laundry', duration: '15', time: 0}),
+    Activity.create({ activityName: 'knit', duration: '30', time: 0}),
+    Activity.create({ activityName: 'chat to friend', duration: '30', time: 0}),
   ]);
   const [
     cody,

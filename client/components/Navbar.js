@@ -11,7 +11,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links after you log in */}
           <NavLink className="navItem" to="/home">Wind Down</NavLink>
           <div className="nav-right">
-            <NavLink className="navItem" to="/my-routine">My Routine</NavLink>
+            <NavLink className="navItem" to="/my-room">My Room</NavLink>
+            <NavLink className="navItem" to="/edit-routine">Edit Routine</NavLink>
             <NavLink className="navItem" to="/#" onClick={handleClick}>Logout</NavLink>
           </div>
         </div>

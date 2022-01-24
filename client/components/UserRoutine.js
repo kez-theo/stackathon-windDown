@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { fetchRoutine } from "../store/activities";
+import {Link} from 'react-router-dom'
 
 class Routine extends React.Component {
   componentDidMount() {
@@ -12,14 +13,25 @@ class Routine extends React.Component {
     return (
       <>
         <div>
-          {routine.map((activity) => (
-            <div key={activity.id}>
-              <div className={"routine"} >
-                <h3 className={"routine-item"}>{activity.name}</h3>
-                <h3>{activity.duration} minutes</h3>
-              </div>    
+          {routine.length < 1 ? (
+            <div>
+              <h3>Create your Bedtime Routine</h3>
+              <Link to="edit-routine">
+                <button>Create</button>
+              </Link>
+          </div> 
+          ) : (
+            <div>
+              {routine.map((activity) => (
+                <div key={activity.id}>
+                  <div className={"routine"} >
+                    <h2 className={"routine-item"}>{activity.activityName}</h2>
+                    <h2>{activity.duration} minutes</h2>
+                  </div>    
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </>
     )

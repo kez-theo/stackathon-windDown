@@ -11,7 +11,7 @@ router.get("/", requireToken, async (req, res, next) => {
       where: {
         userId: req.user.id,
       },
-      attributes: ["id", "name", "duration", "time"],
+      attributes: ["id", "activityName", "duration", "time"],
     });
     res.json(routine);
   } catch (err) {
@@ -21,10 +21,22 @@ router.get("/", requireToken, async (req, res, next) => {
 
 //Route to get a specific activity of user based off of id
 //mounted on /activities/:id
-router.get("/:id", async (res, req, next) => {
+router.get("/:id", requireToken, async (res, req, next) => {
   try {
     const activity = await Activity.findByPk(req.params.id);
     res.json(activity);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//Will need to use a token to modify data in the future. Look at file auth/index.
+router.post("/", requireToken, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.user.id)
+    const activity = await Activity.create(req.body);
+    const newActivity = await activity.setUser(user)
+    res.json(newActivity);
   } catch (err) {
     next(err);
   }
@@ -45,16 +57,6 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const activity = await Activity.findByPk(req.params.id);
     await activity.destroy()
-    res.json(activity);
-  } catch (err) {
-    next(err);
-  }
-});
-
-//Will need to use a token to modify data in the future. Look at file auth/index.
-router.post("/", async (req, res, next) => {
-  try {
-    const activity = await Activity.create(req.body);
     res.json(activity);
   } catch (err) {
     next(err);

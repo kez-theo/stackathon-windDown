@@ -18,7 +18,7 @@ const User = db.define('user', {
   bedtime: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 5,
+    defaultValue: 1340,
     validate: { 
       min: 0, 
       max: 1440 
