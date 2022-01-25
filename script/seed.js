@@ -10,8 +10,8 @@ async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123', bedtime: 1260 }),
-    User.create({ username: 'murphy', password: '123', bedtime: 1380 }),
+    User.create({ username: 'cody', password: '123', bedtime: '21:30' }),
+    User.create({ username: 'murphy', password: '123', bedtime: '22:30' }),
     User.create({ username: 'timmy', password: '123'}),
   ]);
   const activities = await Promise.all([
@@ -32,11 +32,11 @@ async function seed() {
     knit,
     chatToFriend
   ] = activities;
-  await foldLaundry.setUser(cody)
+  await foldLaundry.setUser(murphy)
   await stretch.setUser(cody)
-  await knit.setUser(cody)
+  await knit.setUser(murphy)
   await chatToFriend.setUser(murphy)
-  await readBook.setUser(murphy)
+  await readBook.setUser(cody)
   
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${activities.length} users`)

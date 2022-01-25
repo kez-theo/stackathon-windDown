@@ -22,13 +22,12 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <div className="container">
+      <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={Home} />
             <Route path="/edit-routine" component={EditRoutine} />
-            <Route path="/my-room" component={Three} />
-            <Redirect to="/home" />
+            <Route path="/my-room" component={Home} />
+            <Redirect to="/my-room" />
           </Switch>
         ) : (
           <Switch>

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import UserRoutine from './UserRoutine'
+import Three from './Three'
 
 /**
  * COMPONENT
@@ -10,10 +11,15 @@ export const Home = props => {
   console.log(props)
 
   return (
-    <div>
-      <h2>Welcome, {username}!</h2>
-      <h2>Your bedtime is {bedtime}</h2>
-      <UserRoutine />
+    <div className='row'>
+      <div className='column-40'>
+        <h2>good evening, {username}!</h2>
+        <h2>your bedtime is {bedtime}</h2>
+        <UserRoutine />
+      </div>
+      <div className='column-60'>
+        <Three />
+      </div>
     </div>
   )
 }

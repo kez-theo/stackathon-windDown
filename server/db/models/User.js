@@ -16,14 +16,8 @@ const User = db.define('user', {
     type: Sequelize.STRING,
   },
   bedtime: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 1340,
-    validate: { 
-      min: 0, 
-      max: 1440 
-    }
-  }
+    type: Sequelize.STRING,
+  },
 })
 
 module.exports = User
@@ -103,5 +97,15 @@ User.beforeBulkCreate(users => Promise.all(users.map(hashPassword)))
 //   validate: { 
 //     min: 0, 
 //     max: 60 
+//   }
+// }
+
+// bedtime: {
+//   type: Sequelize.INTEGER,
+//   allowNull: false,
+//   defaultValue: 1340,
+//   validate: { 
+//     min: 0, 
+//     max: 1440 
 //   }
 // }

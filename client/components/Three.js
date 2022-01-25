@@ -18,9 +18,9 @@ class Three extends React.Component {
     //>>>"eyes" we will be viewing our scene from
     //>>>camera position needs to be moved away from origin
     var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 2000 );
-    camera.position.x = 14;
-    camera.position.y = 14;
-    camera.position.z = 18;
+    camera.position.x = 12;
+    camera.position.y = 10;
+    camera.position.z = 16;
 
     //>>>camera is looking at origin
     camera.lookAt(new THREE.Vector3(0,0,0))

@@ -20,28 +20,28 @@ class EditRoutine extends React.Component {
     const routine = this.props.routine || [];
     return (
       <>
-        <div className={"container"}>
+        <div  className="container">
           <AddActivity />
           {routine.length < 1 ? (
             <div>
               <h2>Add Activities to Create your Routine</h2>
             </div>
           ) : (
-            <div>
-              {routine.map((activity) => (
-                <div key={activity.id}>
-                  <div className={"routine"} >
-                    <h2 className={"routine-item"}>{activity.activityName}</h2>
-                    <h2>{activity.duration} minutes</h2>
-                    <div className={"container"}>
+            <div className='routine'>
+              <table>
+                {routine.map((activity) => (
+                  <tr key={activity.id}>
+                    <td>{activity.activityName}</td>
+                    <td>{activity.duration} minutes</td>
+                    <td>
                       <button 
                         onClick={() => this.props.deleteActivity(activity.id)}>
                         X
                       </button>
-                    </div>    
-                  </div>    
-                </div>
-              ))}
+                    </td>       
+                  </tr>
+                ))}
+              </table>
             </div>
           )}
         </div>

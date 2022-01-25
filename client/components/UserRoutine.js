@@ -22,14 +22,14 @@ class Routine extends React.Component {
           </div> 
           ) : (
             <div>
-              {routine.map((activity) => (
-                <div key={activity.id}>
-                  <div className={"routine"} >
-                    <h2 className={"routine-item"}>{activity.activityName}</h2>
-                    <h2>{activity.duration} minutes</h2>
-                  </div>    
-                </div>
-              ))}
+              <table className='room'>
+                {routine.map((activity) => (
+                  <tr className='room' key={activity.id}>
+                    <td className='room'>{activity.activityName}</td>
+                    <td className='room'>{activity.duration} minutes</td>  
+                  </tr>
+                ))}
+              </table>
             </div>
           )}
         </div>
