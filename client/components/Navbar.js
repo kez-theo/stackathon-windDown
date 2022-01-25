@@ -5,24 +5,26 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
+    <div className='container'>
+      <h1 className='title'>wind down</h1>
+    </div>
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <NavLink className="navItem" to="/home">Wind Down</NavLink>
+          <NavLink className="navItem" to="/home">home</NavLink>
           <div className="nav-right">
-            <NavLink className="navItem" to="/my-room">My Room</NavLink>
-            <NavLink className="navItem" to="/edit-routine">Edit Routine</NavLink>
-            <NavLink className="navItem" to="/#" onClick={handleClick}>Logout</NavLink>
+            <NavLink className="navItem" to="/my-room">my room</NavLink>
+            <NavLink className="navItem" to="/edit-routine">edit routine</NavLink>
+            <NavLink className="navItem" to="/#" onClick={handleClick}>logout</NavLink>
           </div>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <NavLink className="navItem" to="/login">Wind Down</NavLink>
           <div className="nav-right">
-            <NavLink className="navItem" to="/login">Login</NavLink>
-            <NavLink className="navItem" to="/signup">Sign Up</NavLink>
+            <NavLink className="navItem" to="/login">login</NavLink>
+            <NavLink className="navItem" to="/signup">sign up</NavLink>
           </div>
         </div>
       )}

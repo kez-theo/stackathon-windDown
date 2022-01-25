@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Century Gothic', sans-serif;
   background-color: #1a0949;
 }
 
@@ -29,10 +29,6 @@ nav {
 
 .navItem:hover {
   color: #7000FF;
-}
-
-.nav-right {
-  float: right;
 }
 
 form div {
@@ -100,4 +96,8 @@ button:hover {
 h1, h2, h3, h4, h5, h6, p {
   font-weight:  bolder;
   color: #fff;
+}
+
+h1.title {
+  font-size: 60px;
 }
