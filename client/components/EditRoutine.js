@@ -27,7 +27,7 @@ class EditRoutine extends React.Component {
               <h2>Add Activities to Create your Routine</h2>
             </div>
           ) : (
-            <div className='routine'>
+            <div>
               <table>
                 {routine.map((activity) => (
                   <tr key={activity.id}>
