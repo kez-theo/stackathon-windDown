@@ -21,6 +21,7 @@ class ThreeSky extends React.Component {
 
     //>>>WebGL renderer that will render our scene
     var renderer = new THREE.WebGLRenderer();
+    camera.position.z = 10;
 
     //>>>cast shadows
     renderer.shadowMap.enabled = true;
@@ -29,7 +30,10 @@ class ThreeSky extends React.Component {
 
     
     // Scene Geometry
-    
+    var moon = model.getSphere(0xFFFFFF, .5, 32)
+
+    //Appending Objects to Scene
+    scene.add( moon );
 
 
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
