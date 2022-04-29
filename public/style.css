@@ -32,12 +32,9 @@ body {
 }
 
 .container-three {
-  position: absolute;
-  /* overflow: auto; */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
+  display: flex;
+  position: relative;
+  margin-left: 20%
 }
 
 a {

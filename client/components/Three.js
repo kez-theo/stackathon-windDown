@@ -12,7 +12,6 @@ class Three extends React.Component {
     //>>>scene object is the container for all other objects - params include FoV, aspect ratio, near and far clipping planes
     var scene = new THREE.Scene();
 
-    // scene.fog = new THREE.FogExp2(0xffffff, 0.02)
 
     //>>>"eyes" we will be viewing our scene from
     //>>>camera position needs to be moved away from origin
@@ -38,6 +37,16 @@ class Three extends React.Component {
     //>>>set size of the render output
 
     renderer.setSize( window.innerWidth, window.innerHeight );
+
+    // Raycasting
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    function onPointerMove( event ) {
+      pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+      pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    
+    }
 
     // Scene Geometry
     var floor = model.getPlane(12, 12, 0x7000FF)
@@ -106,15 +115,33 @@ class Three extends React.Component {
     // pointLight.add(sphere)
     scene.add( pointLight )
 
-
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
     //>>>the renderer gets mounted to this component
     this.mount.appendChild( renderer.domElement );
     
     var controls = new OrbitControls(camera, renderer.domElement);
-    
-    model.update(renderer, scene, camera, controls);
 
+    function hoverItem() {
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(scene.children)
+      for (let i = 0; i < intersects.length; i++) {
+        intersects[i].object.material.transparent = true
+        intersects[i].object.material.opacity = .5
+      }
+    }
+    
+    function resetMaterial() {
+      for (let i = 0; i < scene.children.length; i++) {
+        if (scene.children[i].material) {
+           scene.children[i].material.opacity = 1  
+        }
+      }
+    }
+
+    window.addEventListener( 'pointermove', onPointerMove );
+
+    model.update(renderer, scene, camera, controls, resetMaterial, hoverItem);
+    
   }
 
   render () {

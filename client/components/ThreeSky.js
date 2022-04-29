@@ -30,8 +30,9 @@ class ThreeSky extends React.Component {
 
     
     // Scene Geometry
-    var moon = model.getMoon(0xffe9a4, 3, 32)
+    var moon = model.getMoon(0xdbaed1, 3, 32)
     moon.position.set(-10, 4, 0)
+    moon.rotation.x = Math.PI
     var stars = [];
 
     //>>>create star field
@@ -52,7 +53,7 @@ class ThreeSky extends React.Component {
     }
 
     //Scene Lighting
-    var pointLight = model.getPointLight(0xFFFFFF, 1, 2, 2)
+    var pointLight = model.getPointLight(0xffde01, 1, 2, 2)
     pointLight.position.set(-5, 4, 7)
 
     //Appending Objects to Scene
@@ -74,10 +75,8 @@ class ThreeSky extends React.Component {
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
     //>>>the renderer gets mounted to this component
     this.mount.appendChild( renderer.domElement );
-    
-    var controls = new OrbitControls(camera, renderer.domElement);
- 
-    model.update(renderer, scene, camera, controls, twinkle);
+
+    model.update(renderer, scene, camera, null, twinkle);
 
   }
 
