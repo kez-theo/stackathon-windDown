@@ -1,37 +1,26 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import { me  } from '../store/auth'
 import UserRoutine from './UserRoutine'
 import Three from './Three'
 
 /**
  * COMPONENT
  */
-export const Home = props => {
-  const {username, bedtime} = props
-  console.log(props)
+
+const Home = () => {
+  const dispatch = useDispatch()
+  const auth = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    dispatch(me());
+  }, []);
 
   return (
-    <div className='row'>
-      <div className='column-40'>
-        <h2>good evening, {username}!</h2>
-        <h2>your bedtime is {bedtime}</h2>
-        <UserRoutine />
-      </div>
-      <div className='column-60'>
-        <Three />
-      </div>
+    <div className='container-three'>
+      <Three />
     </div>
   )
 }
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    username: state.auth.username,
-    bedtime: state.auth.bedtime,
-  }
-}
-
-export default connect(mapState)(Home)
+export default Home

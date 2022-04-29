@@ -47,6 +47,22 @@ export const getPhongSphere = (color, size, polys) => {
   return sphere;
 }
 
+// SPHERE - MOON
+export const getMoon = (color, size, polys) => {
+  var geometry = new THREE.SphereGeometry(size, polys, polys)
+  var moonTexture = new THREE.TextureLoader().load( "lroc_color_poles_2k.png" );
+  moonTexture.wrapS = moonTexture.wrapT = THREE.MirroredRepeatWrapping;
+  var material = new THREE.MeshStandardMaterial({ 
+    bumpMap: moonTexture,
+    bumpScale: .05, 
+    color: color 
+  });
+  var sphere = new THREE.Mesh( geometry, material );
+  // sphere.castShadow = true;
+  // sphere.receiveShadow = true;
+  return sphere;
+}
+
 // CYLINDER
 export const getCylinder = (color, radiusTop, radiusBottom, height, segments) => {
   var geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, segments)
@@ -92,16 +108,17 @@ export const getPointLight = (color, intensity, distance, decay) => {
   return light;
 }
 
-
-
 // UPDATE SCENE
-export const update = (renderer, scene, camera, controls) => {
+export function update(renderer, scene, camera, controls, callback = () => {}) {
   renderer.render(
     scene,
     camera
   )
-  controls.update()  
+  if (controls) {
+    controls.update()
+  }
+  callback()
   requestAnimationFrame(function() {
-    update(renderer, scene, camera, controls);
+    update(renderer, scene, camera, controls, callback);
   })
 }

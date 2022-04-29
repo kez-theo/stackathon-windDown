@@ -4,13 +4,13 @@ import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <div className='container'>
+  <div className='container'>
+    <div >
       <h1 className='title'>wind down</h1>
     </div>
     <nav>
       {isLoggedIn ? (
-        <div className='container'>
+        <div >
           {/* The navbar will show these links after you log in */}
           <div>
             <NavLink className="navItem" to="/my-room">my room</NavLink>
@@ -19,7 +19,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </div>
         </div>
       ) : (
-        <div className='container'>
+        <div >
           {/* The navbar will show these links before you log in */}
           <div>
             <NavLink className="navItem" to="/login">login</NavLink>
