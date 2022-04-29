@@ -11,7 +11,6 @@ class Three extends React.Component {
     //>>>set up parameters for the scene
     //>>>scene object is the container for all other objects - params include FoV, aspect ratio, near and far clipping planes
     var scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0x1a0949 );
 
     // scene.fog = new THREE.FogExp2(0xffffff, 0.02)
 
@@ -26,14 +25,20 @@ class Three extends React.Component {
     camera.lookAt(new THREE.Vector3(0,0,0))
 
     //>>>WebGL renderer that will render our scene
-    var renderer = new THREE.WebGLRenderer();
+    var renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setClearColor( 0x000000, 0);
+    const canvas = renderer.domElement;
+    console.log(canvas)
+    // const width = canvas.clientWidth;
+    // const height = canvas.clientHeight;
+    // renderer.setSize( width, height );
 
     //>>>cast shadows
     renderer.shadowMap.enabled = true;
     //>>>set size of the render output
+
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-    
     // Scene Geometry
     var floor = model.getPlane(12, 12, 0x7000FF)
     var wall1 = model.getBox(12, 8, 1, 0x7000FF)
@@ -81,7 +86,6 @@ class Three extends React.Component {
     pointLight.position.set(0, 3.5, -4.5)
     pointLight2.position.set(0, 3.5, -4.5)
 
-    
     //Appending Objects to Scene
     scene.add( floor );
     scene.add( wall1 );
@@ -116,9 +120,7 @@ class Three extends React.Component {
   render () {
     return (
       <div>
-        <div>
-          <div ref={ref => (this.mount = ref)} />
-        </div>
+        <div ref={ref => (this.mount = ref)} />
       </div>
     )
   }

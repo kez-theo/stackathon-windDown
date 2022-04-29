@@ -17,7 +17,7 @@ class ThreeSky extends React.Component {
 
     //>>>"eyes" we will be viewing our scene from
     //>>>camera position needs to be moved away from origin
-    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var camera = new THREE.OrthographicCamera( window.innerWidth / - 100, window.innerWidth / 100, window.innerHeight / 100, window.innerHeight / - 100, 1, 1000 );
 
     //>>>WebGL renderer that will render our scene
     var renderer = new THREE.WebGLRenderer();
@@ -30,10 +30,45 @@ class ThreeSky extends React.Component {
 
     
     // Scene Geometry
-    var moon = model.getSphere(0xFFFFFF, .5, 32)
+    var moon = model.getMoon(0xffe9a4, 3, 32)
+    moon.position.set(-10, 4, 0)
+    var stars = [];
+
+    //>>>create star field
+    const starfield = () => {
+      var num = Math.floor(Math.random()*15) + 1;
+      num *= Math.floor(Math.random()*2) === 1 ? 1 : -1;
+      return num
+    }
+
+    for (let i = 0; i < 100; i++) {
+      let star = model.getSphere(0xFFFFFF, .05, 10)
+      star.position.set( starfield(), starfield(), 0 );
+      stars.push( star );
+    }
+
+    for (let j = 0; j < stars.length; j++) {
+      scene.add( stars[j] );
+    }
+
+    //Scene Lighting
+    var pointLight = model.getPointLight(0xFFFFFF, 1, 2, 2)
+    pointLight.position.set(-5, 4, 7)
 
     //Appending Objects to Scene
     scene.add( moon );
+    scene.add( pointLight )
+
+    //Animation
+    var lightness = 0;
+
+    function twinkle() {
+      for (let k = 0; k < stars.length; k++) {
+        let star = stars[k];
+        lightness > 100 ? lightness = 0 : lightness++;
+        star.material.color = new THREE.Color("hsl(255, 50%, " + lightness + "%)");
+      }
+    }
 
 
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
@@ -41,17 +76,15 @@ class ThreeSky extends React.Component {
     this.mount.appendChild( renderer.domElement );
     
     var controls = new OrbitControls(camera, renderer.domElement);
-    
-    model.update(renderer, scene, camera, controls);
+ 
+    model.update(renderer, scene, camera, controls, twinkle);
 
   }
 
   render () {
     return (
       <div>
-        <div>
-          <div ref={ref => (this.mount = ref)} />
-        </div>
+        <div ref={ref => (this.mount = ref)} />
       </div>
     )
   }

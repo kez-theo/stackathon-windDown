@@ -17,19 +17,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-       <Three />
+    <div className='container-three'>
+      <Three />
     </div>
-    // <div className='row'> 
-    //   <div className='column-40'>
-    //     <h2>good evening, {auth.username}!</h2>
-    //     <h2>your bedtime is {auth.bedtime}</h2>
-    //     <UserRoutine />
-    //   </div>
-    //   <div className='column-60'>
-    //     <Three />
-    //   </div>
-    // </div>
   )
 }
 
