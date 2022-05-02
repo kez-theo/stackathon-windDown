@@ -30,8 +30,9 @@ class ThreeSky extends React.Component {
 
     
     // Scene Geometry
-    var moon = model.getMoon(0xffe9a4, 3, 32)
+    var moon = model.getMoon(0xdb9dfc, 3, 32)
     moon.position.set(-10, 4, 0)
+    moon.rotation.x = Math.PI
     var stars = [];
 
     //>>>create star field
@@ -42,7 +43,7 @@ class ThreeSky extends React.Component {
     }
 
     for (let i = 0; i < 100; i++) {
-      let star = model.getSphere(0xFFFFFF, .05, 10)
+      let star = model.getSphere(0xFFFFFF, .02, 10)
       star.position.set( starfield(), starfield(), 0 );
       stars.push( star );
     }
@@ -52,7 +53,7 @@ class ThreeSky extends React.Component {
     }
 
     //Scene Lighting
-    var pointLight = model.getPointLight(0xFFFFFF, 1, 2, 2)
+    var pointLight = model.getPointLight(0xffde01, 1, 2, 2)
     pointLight.position.set(-5, 4, 7)
 
     //Appending Objects to Scene
@@ -60,13 +61,13 @@ class ThreeSky extends React.Component {
     scene.add( pointLight )
 
     //Animation
-    var lightness = 0;
+    var opacity = 0;
 
     function twinkle() {
       for (let k = 0; k < stars.length; k++) {
         let star = stars[k];
-        lightness > 100 ? lightness = 0 : lightness++;
-        star.material.color = new THREE.Color("hsl(255, 50%, " + lightness + "%)");
+        opacity > 1 ? opacity = 0 : opacity += .05;
+        star.material.opacity = new THREE.Color("hsl(255, 50%, " + opacity + "%)");
       }
     }
 
@@ -74,10 +75,8 @@ class ThreeSky extends React.Component {
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
     //>>>the renderer gets mounted to this component
     this.mount.appendChild( renderer.domElement );
-    
-    var controls = new OrbitControls(camera, renderer.domElement);
- 
-    model.update(renderer, scene, camera, controls, twinkle);
+
+    model.update(renderer, scene, camera, null, twinkle);
 
   }
 

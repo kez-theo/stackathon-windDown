@@ -12,7 +12,6 @@ class Three extends React.Component {
     //>>>scene object is the container for all other objects - params include FoV, aspect ratio, near and far clipping planes
     var scene = new THREE.Scene();
 
-    // scene.fog = new THREE.FogExp2(0xffffff, 0.02)
 
     //>>>"eyes" we will be viewing our scene from
     //>>>camera position needs to be moved away from origin
@@ -106,15 +105,14 @@ class Three extends React.Component {
     // pointLight.add(sphere)
     scene.add( pointLight )
 
-
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
     //>>>the renderer gets mounted to this component
     this.mount.appendChild( renderer.domElement );
     
     var controls = new OrbitControls(camera, renderer.domElement);
-    
-    model.update(renderer, scene, camera, controls);
 
+    model.update(renderer, scene, camera, controls);
+    
   }
 
   render () {

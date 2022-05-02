@@ -32,6 +32,8 @@ body {
 }
 
 .container-three {
+  display: flex;
+  position: relative;
   position: absolute;
   margin-left: 20%
 }
