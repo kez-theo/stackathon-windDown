@@ -109,7 +109,7 @@ export const getPointLight = (color, intensity, distance, decay) => {
 }
 
 // UPDATE SCENE
-export function update(renderer, scene, camera, controls, callback1 = () => {}, callback2 = () => {}) {
+export function update(renderer, scene, camera, controls, callback1 = () => {}) {
   renderer.render(
     scene,
     camera
@@ -118,8 +118,7 @@ export function update(renderer, scene, camera, controls, callback1 = () => {}, 
     controls.update()
   }
   callback1()
-  callback2()
   requestAnimationFrame(function() {
-    update(renderer, scene, camera, controls, callback1, callback2);
+    update(renderer, scene, camera, controls, callback1);
   })
 }

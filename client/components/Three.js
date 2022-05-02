@@ -38,16 +38,6 @@ class Three extends React.Component {
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-    // Raycasting
-    const raycaster = new THREE.Raycaster();
-    const pointer = new THREE.Vector2();
-
-    function onPointerMove( event ) {
-      pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    
-    }
-
     // Scene Geometry
     var floor = model.getPlane(12, 12, 0x7000FF)
     var wall1 = model.getBox(12, 8, 1, 0x7000FF)
@@ -121,26 +111,7 @@ class Three extends React.Component {
     
     var controls = new OrbitControls(camera, renderer.domElement);
 
-    function hoverItem() {
-      raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObjects(scene.children)
-      for (let i = 0; i < intersects.length; i++) {
-        intersects[i].object.material.transparent = true
-        intersects[i].object.material.opacity = .5
-      }
-    }
-    
-    function resetMaterial() {
-      for (let i = 0; i < scene.children.length; i++) {
-        if (scene.children[i].material) {
-           scene.children[i].material.opacity = 1  
-        }
-      }
-    }
-
-    window.addEventListener( 'pointermove', onPointerMove );
-
-    model.update(renderer, scene, camera, controls, resetMaterial, hoverItem);
+    model.update(renderer, scene, camera, controls);
     
   }
 
