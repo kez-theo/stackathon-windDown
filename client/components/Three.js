@@ -2,6 +2,7 @@ import React from 'react'
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as model from './threeHelpers'
+import * as sky from './Sky'
 import { room } from './ThreeRoom';
 
 class Three extends React.Component {
@@ -27,6 +28,11 @@ class Three extends React.Component {
     var renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setClearColor( 0x000000, 0);
 
+    //>>>cast shadows
+    renderer.shadowMap.enabled = true;
+    //>>>set size of the render output
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
     // Raycasting
     var raycaster = new THREE.Raycaster();
     var pointer = new THREE.Vector2();
@@ -35,11 +41,6 @@ class Three extends React.Component {
       pointer.x = ( event.clientX / window.innerWidth  ) * 2 - 1;
       pointer.y = - ( (event.clientY -200) / window.innerHeight) * 2 + 1;
     }
-
-    //>>>cast shadows
-    renderer.shadowMap.enabled = true;
-    //>>>set size of the render output
-    renderer.setSize( window.innerWidth, window.innerHeight );
 
     // Bedtime Routine Objects
     var yogaMat = model.getCylinder(0xFF00B8, .25, .25, 2.5, 10)
@@ -51,7 +52,13 @@ class Three extends React.Component {
 
     //Add items to the scene
     scene.add( room )
+    scene.add( sky.moon )
 
+    for (let j = 0; j < sky.stars.length; j++) {
+      scene.add( sky.stars[j] );
+    }
+
+    
     scene.add( yogaMat )
     scene.add( book )
 
