@@ -2,7 +2,6 @@ import React from 'react'
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as model from './threeHelpers'
-import * as sky from './Sky'
 import { room } from './ThreeRoom';
 
 class Three extends React.Component {
@@ -33,11 +32,18 @@ class Three extends React.Component {
     //>>>set size of the render output
     renderer.setSize( window.innerWidth, window.innerHeight );
 
+    const onWindowResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight)
+    }
+
     // Raycasting
     var raycaster = new THREE.Raycaster();
     var pointer = new THREE.Vector2();
 
-    function onPointerMove( event ) {
+    const onPointerMove = ( event ) => {
       pointer.x = ( event.clientX / window.innerWidth  ) * 2 - 1;
       pointer.y = - ( (event.clientY -200) / window.innerHeight) * 2 + 1;
     }
@@ -52,11 +58,11 @@ class Three extends React.Component {
 
     //Add items to the scene
     scene.add( room )
-    scene.add( sky.moon )
+    // scene.add( sky.moon )
 
-    for (let j = 0; j < sky.stars.length; j++) {
-      scene.add( sky.stars[j] );
-    }
+    // for (let j = 0; j < sky.stars.length; j++) {
+    //   scene.add( sky.stars[j] );
+    // }
 
     
     scene.add( yogaMat )
@@ -67,15 +73,25 @@ class Three extends React.Component {
 
     objects.push( yogaMat );
     objects.push( book );
-
-    //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
-    //>>>the renderer gets mounted to this component
     
+    var selectedObject = null
+
+
+    //Create Hover and OnClick Events
+    const onClick = (event) => {
+      raycaster.setFromCamera(pointer, camera);
+      let intersects = raycaster.intersectObjects(objects);
+      if (intersects.length > 0) {
+        selectedObject = intersects[0].object
+      }
+    }
 
     const resetColor = () => {
       for (let i = 0; i < objects.length; i++) {
         if (objects[i].material) {
-          objects[i].material.emissive.set( 0x000000 )
+          objects[i] === selectedObject 
+          ? objects[i].material.emissive.set ( 0xd411c4 )
+          : objects[i].material.emissive.set ( 0x000000 )
         }
       }
     }
@@ -89,7 +105,13 @@ class Three extends React.Component {
     }
     
     var controls = new OrbitControls(camera, renderer.domElement);
+    
+    window.addEventListener( 'resize', onWindowResize );
     window.addEventListener( 'pointermove', onPointerMove );
+    window.addEventListener('click', onClick )
+
+    //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
+    //>>>the renderer gets mounted to this component
     this.mount.appendChild( renderer.domElement );
 
     const animate = () => {
@@ -103,7 +125,7 @@ class Three extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='container'>
         <div ref={ref => (this.mount = ref)} />
       </div>
     )
