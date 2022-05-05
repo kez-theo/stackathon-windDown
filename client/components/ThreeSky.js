@@ -63,20 +63,28 @@ class ThreeSky extends React.Component {
     //Animation
     var opacity = 0;
 
-    function twinkle() {
-      for (let k = 0; k < stars.length; k++) {
-        let star = stars[k];
-        opacity > 1 ? opacity = 0 : opacity += .05;
-        star.material.opacity = new THREE.Color("hsl(255, 50%, " + opacity + "%)");
-      }
-    }
+    // function twinkle() {
+    //   for (let k = 0; k < stars.length; k++) {
+    //     let star = stars[k];
+    //     opacity > 1 ? opacity = 0 : opacity += .05;
+    //     star.material.opacity = new THREE.MeshStandardMaterial({
+    //       color: "0xffffff",
+    //       opacity: opacity
+    //     });
+    //   }
+    // }
 
 
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
     //>>>the renderer gets mounted to this component
     this.mount.appendChild( renderer.domElement );
 
-    model.update(renderer, scene, camera, null, twinkle);
+    
+    const animate = () => {
+      requestAnimationFrame( animate )
+      renderer.render(scene, camera)
+    }
+    animate()
 
   }
 

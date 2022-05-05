@@ -28,9 +28,6 @@ class Three extends React.Component {
     renderer.setClearColor( 0x000000, 0);
     const canvas = renderer.domElement;
     console.log(canvas)
-    // const width = canvas.clientWidth;
-    // const height = canvas.clientHeight;
-    // renderer.setSize( width, height );
 
     //>>>cast shadows
     renderer.shadowMap.enabled = true;
@@ -111,8 +108,11 @@ class Three extends React.Component {
     
     var controls = new OrbitControls(camera, renderer.domElement);
 
-    model.update(renderer, scene, camera, controls);
-    
+    const animate = () => {
+      requestAnimationFrame( animate )
+      renderer.render(scene, camera, controls)
+    }
+    animate()
   }
 
   render () {
