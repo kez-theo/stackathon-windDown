@@ -55,26 +55,41 @@ class Three extends React.Component {
     scene.add( yogaMat )
     scene.add( book )
 
+    //Create Array for Interactive Objects
+    var objects = [];
+
+    objects.push( yogaMat );
+    objects.push( book );
+
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
     //>>>the renderer gets mounted to this component
-    this.mount.appendChild( renderer.domElement );
+    
+
+    const resetColor = () => {
+      for (let i = 0; i < objects.length; i++) {
+        if (objects[i].material) {
+          objects[i].material.emissive.set( 0x000000 )
+        }
+      }
+    }
 
     const hoverPieces = () => {
       raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObjects(scene.children)
+      const intersects = raycaster.intersectObjects(objects)
       for (let i = 0; i < intersects.length; i++) {
-        intersects[ i ].object.material.color.set( 0xffffff );
+        intersects[ i ].object.material.emissive.set( 0xd411c4 );
       }
     }
     
     var controls = new OrbitControls(camera, renderer.domElement);
     window.addEventListener( 'pointermove', onPointerMove );
+    this.mount.appendChild( renderer.domElement );
 
     const animate = () => {
       requestAnimationFrame( animate )
       renderer.render(scene, camera, controls)
+      resetColor()
       hoverPieces();
-      
     }
     animate()
   }
