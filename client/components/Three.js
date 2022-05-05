@@ -15,7 +15,7 @@ class Three extends React.Component {
 
     //>>>"eyes" we will be viewing our scene from
     //>>>camera position needs to be moved away from origin
-    var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 2000 );
+    var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
     camera.position.x = 12;
     camera.position.y = 10;
     camera.position.z = 16;
@@ -32,8 +32,8 @@ class Three extends React.Component {
     var pointer = new THREE.Vector2();
 
     function onPointerMove( event ) {
-      pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+      pointer.x = ( event.clientX / window.innerWidth  ) * 2 - 1;
+      pointer.y = - ( (event.clientY -200) / window.innerHeight) * 2 + 1;
     }
 
     //>>>cast shadows

@@ -4,7 +4,8 @@
 
 body {
   margin: 0;
-  overflow: hidden
+  /* overflow: hidden */
+  background-color: #1a0949;
 }
 
 .background {
@@ -29,6 +30,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 200px;
 }
 
 .container-three {
