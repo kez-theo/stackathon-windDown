@@ -17,7 +17,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='container-three'>
+    <div>
       <Three />
     </div>
   )

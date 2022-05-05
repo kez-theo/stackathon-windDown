@@ -12,7 +12,7 @@ class Three extends React.Component {
     //>>>set up parameters for the scene
     //>>>scene object is the container for all other objects - params include FoV, aspect ratio, near and far clipping planes
     var scene = new THREE.Scene();
-    
+
     //>>>"eyes" we will be viewing our scene from
     //>>>camera position needs to be moved away from origin
     var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 2000 );
@@ -28,14 +28,13 @@ class Three extends React.Component {
     renderer.setClearColor( 0x000000, 0);
 
     // Raycasting
-    const raycaster = new THREE.Raycaster();
-    const pointer = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster();
+    var pointer = new THREE.Vector2();
 
     function onPointerMove( event ) {
       pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
       pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
-
 
     //>>>cast shadows
     renderer.shadowMap.enabled = true;
@@ -50,8 +49,7 @@ class Three extends React.Component {
     book.position.set(-3.5, 1.85, 0)
     book.rotation.y = -45;
 
-    // bed.add( book )
-    // scene.add( yogaMat );
+    //Add items to the scene
     scene.add( room )
 
     scene.add( yogaMat )
@@ -64,13 +62,19 @@ class Three extends React.Component {
     const hoverPieces = () => {
       raycaster.setFromCamera(pointer, camera);
       const intersects = raycaster.intersectObjects(scene.children)
+      for (let i = 0; i < intersects.length; i++) {
+        intersects[ i ].object.material.color.set( 0xffffff );
+      }
     }
     
     var controls = new OrbitControls(camera, renderer.domElement);
+    window.addEventListener( 'pointermove', onPointerMove );
 
     const animate = () => {
       requestAnimationFrame( animate )
       renderer.render(scene, camera, controls)
+      hoverPieces();
+      
     }
     animate()
   }
