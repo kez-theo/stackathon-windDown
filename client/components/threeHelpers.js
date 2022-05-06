@@ -107,18 +107,3 @@ export const getPointLight = (color, intensity, distance, decay) => {
   light.shadow.radius= 8
   return light;
 }
-
-// UPDATE SCENE
-export function update(renderer, scene, camera, controls, callback1 = () => {}) {
-  renderer.render(
-    scene,
-    camera
-  )
-  if (controls) {
-    controls.update()
-  }
-  callback1()
-  requestAnimationFrame(function() {
-    update(renderer, scene, camera, controls, callback1);
-  })
-}

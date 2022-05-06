@@ -3,59 +3,102 @@ import { connect } from "react-redux";
 import { createActivity } from "../store/activities";
 import { withRouter } from 'react-router'
 
-class AddActivity extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      activityName: "",
-      duration: ""
-    };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
 
-  handleChange(evt) {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    });
-  }
+const AddActivity = () => {
 
-  handleSubmit(evt) {
-    evt.preventDefault();
-    this.props.createActivity({ ...this.state })
-  }
+  return (
+    <>
+      <div>
+        <form className="routine" >
+          <div className="routine-item">
+            <input type="checkbox" name="read" value="read" />    
+            <label for="vehicle1">read</label>
+          </div>
+          <div className="routine-item">
+            <input type="checkbox" name="prep" value="prep" />
+            <label for="vehicle3">prep for tomorrow</label>
+          </div>
+          <div className="routine-item">
+            <input type="checkbox" name="plants" value="plants" />
+            <label for="vehicle3">tend to plants</label> 
+          </div>
+          <div className="routine-item">
+            <input type="checkbox" name="meditate" value="meditate" />
+            <label for="vehicle3">meditate</label>  
+          </div>
+          <div className="routine-item">
+            <input type="checkbox" name="music" value="music" />
+            <label for="vehicle3">listen to music</label>
+          </div>
 
-  render() {
-    const { activityName, duration } = this.state;
-    const { handleSubmit, handleChange } = this;
-
-    return (
-      <>
-        <div>
-          <form  className="routine" name="add-activity" onSubmit={handleSubmit}>
-            <div>
-              <input placeholder="Enter Activity" type="text" name="activityName" onChange={handleChange} value={activityName} />
-            </div>
-            <div>
-              <input placeholder="Enter Time" name="duration" type="text" onChange={handleChange} value={duration} />
-            </div>
-            <div className="container">
-              <button type="submit">Add</button>
-            </div>
-            {/* {error && error.response && <h4 style={{display: 'flex', justifyContent: 'center'}}> {error.response.data} </h4>} */}
-          </form>
-        </div>
-      </>
-    )
-  }
+          <div className="routine-item">
+            <input type="checkbox" name="stretch" value="stretch" />
+            <label for="vehicle2">stretch</label>
+          </div>
+          <div className="container">
+            <button type="submit">Create Routine</button>
+          </div>
+        </form>
+      </div>
+    </>
+  )
 }
 
-const mapState = (state) => ({
-  routine: state.routineReducer
-});
+export default AddActivity;
 
-const mapDispatch = (dispatch) => ({
-  createActivity: (activity) => dispatch(createActivity(activity)),
-});
+// class AddActivity extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       activityName: "",
+//       duration: ""
+//     };
+//     this.handleChange = this.handleChange.bind(this)
+//     this.handleSubmit = this.handleSubmit.bind(this)
+//   }
 
-export default withRouter(connect(mapState, mapDispatch)(AddActivity));
+//   handleChange(evt) {
+//     this.setState({
+//       [evt.target.name]: evt.target.value
+//     });
+//   }
+
+//   handleSubmit(evt) {
+//     evt.preventDefault();
+//     this.props.createActivity({ ...this.state })
+//   }
+
+//   render() {
+//     const { activityName, duration } = this.state;
+//     const { handleSubmit, handleChange } = this;
+
+//     return (
+//       <>
+//         <div>
+//           <form  className="routine" name="add-activity" onSubmit={handleSubmit}>
+//             <div>
+//               <input placeholder="Enter Activity" type="text" name="activityName" onChange={handleChange} value={activityName} />
+//             </div>
+//             <div>
+//               <input placeholder="Enter Time" name="duration" type="text" onChange={handleChange} value={duration} />
+//             </div>
+//             <div className="container">
+//               <button type="submit">Add</button>
+//             </div>
+//             {/* {error && error.response && <h4 style={{display: 'flex', justifyContent: 'center'}}> {error.response.data} </h4>} */}
+//           </form>
+//         </div>
+//       </>
+//     )
+//   }
+// }
+
+// const mapState = (state) => ({
+//   routine: state.routineReducer
+// });
+
+// const mapDispatch = (dispatch) => ({
+//   createActivity: (activity) => dispatch(createActivity(activity)),
+// });
+
+// export default withRouter(connect(mapState, mapDispatch)(AddActivity));

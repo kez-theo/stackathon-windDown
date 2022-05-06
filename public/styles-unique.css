@@ -1,0 +1,142 @@
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: rgba(14, 2, 44, 0.74);
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* Position and style the close button (top right corner) */
+/* .sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+} */
+
+a {
+  text-decoration: none;
+}
+
+label {
+  display: inline-block;
+  background-color : transparent;
+  color: #fff;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+form div {
+  margin: 1em;
+  align-content: center;
+}
+
+input {
+  display: flex;
+  border-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  background-color: #1a0949;
+}
+
+input[type="password"], input[type="text"], textarea {
+  background-color : transparent;
+  color: #fff;
+  height: 40px;
+  font-size: 25px;
+  background-color: #0f0231;
+}
+
+input::placeholder {
+  color: #fff;
+  font-style: italic;
+  padding-left: 5px;
+}
+
+button {
+  border-radius: 5px;
+  border-color: #fff;
+  background-color : transparent;
+  font-size: 20px;
+  color: #fff;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  border-color: #7000FF;
+  background-color : #7000FF;
+  color: #fff;
+}
+
+.three-vw {
+  position: relative;
+  display: flex;
+  height: 40%;
+  width: 40%;
+  /* flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+.row {
+  display: flex;
+}
+
+.routine {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 5px;
+  /* margin: 20px; */
+}
+
+.routine-item {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.column {
+  display: flex;
+}
+
+table {
+  table-layout: auto;
+  width: 100%;
+}
+
+tr {
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+
+td {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+
+table.room {
+  table-layout: auto;
+  width: 100%;
+}
+
+tr.room {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+td.room {
+  padding-left: 0px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
