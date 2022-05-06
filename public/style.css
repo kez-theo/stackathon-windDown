@@ -4,7 +4,8 @@
 
 body {
   margin: 0;
-  overflow: hidden
+  overflow: hidden;
+  /* background-color: #1a0949; */
 }
 
 .background {
@@ -21,6 +22,15 @@ body {
 
 .overlay {
   z-index: 9;
+}
+
+.container-nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }
 
 .container {

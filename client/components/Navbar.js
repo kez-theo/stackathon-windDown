@@ -4,7 +4,7 @@ import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div className='container'>
+  <div className='container-nav'>
     <div >
       <h1 className='title'>wind down</h1>
     </div>
