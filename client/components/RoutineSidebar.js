@@ -15,15 +15,18 @@ const RoutineSidebar = (props) => {
 
   return (
     <div className='sidenav' style={{ width: props.width, paddingTop: "20px" }} >
-      <div className='container'>
+      <div className='container-right'>
         <button onClick={props.closeNav}>X</button>
       </div>
       <h1>{props.name}</h1>
+      <div>
+        <h2>Add activities to create your routine!</h2>
+      </div>
       <AddActivity />
        <div className="container-sidenav">
            {routine.length < 1 ? (
           <div>
-            <h2>Add Activities to create your routine</h2>
+            <h2>Go back to create your routine!</h2>
           </div>
           ) : (
           <div>

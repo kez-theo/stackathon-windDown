@@ -6,34 +6,45 @@ import { withRouter } from 'react-router'
 
 const AddActivity = () => {
 
+  const handleChange = (evt) => {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    });
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    this.props.createActivity({ ...this.state })
+  }
+
   return (
     <>
       <div>
         <form className="routine" >
           <div className="routine-item">
             <input type="checkbox" name="read" value="read" />    
-            <label for="vehicle1">read</label>
+            <label for="read">read</label>
           </div>
           <div className="routine-item">
             <input type="checkbox" name="prep" value="prep" />
-            <label for="vehicle3">prep for tomorrow</label>
+            <label for="prep">prep for tomorrow</label>
           </div>
           <div className="routine-item">
             <input type="checkbox" name="plants" value="plants" />
-            <label for="vehicle3">tend to plants</label> 
+            <label for="plants">tend to plants</label> 
           </div>
           <div className="routine-item">
             <input type="checkbox" name="meditate" value="meditate" />
-            <label for="vehicle3">meditate</label>  
+            <label for="meditate">meditate</label>  
           </div>
           <div className="routine-item">
             <input type="checkbox" name="music" value="music" />
-            <label for="vehicle3">listen to music</label>
+            <label for="music">listen to music</label>
           </div>
 
           <div className="routine-item">
             <input type="checkbox" name="stretch" value="stretch" />
-            <label for="vehicle2">stretch</label>
+            <label for="stretch">stretch</label>
           </div>
           <div className="container">
             <button type="submit">Create Routine</button>
