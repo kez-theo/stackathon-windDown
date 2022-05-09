@@ -1,25 +1,80 @@
-import React from 'react'
-import { connect } from "react-redux";
-import { createActivity } from "../store/activities";
+import React, {useEffect, useState} from 'react'
+import { useDispatch } from "react-redux";
+import { createActivity, deleteActivity } from "../store/activities";
 import { withRouter } from 'react-router'
 
+const activities = ["read", "prep for tomorrow", "tend to plants", 
+                  "meditate", "listen to music", "stretch"]
 
 const AddActivity = () => {
 
+  const dispatch = useDispatch()
+  const [task, setTask] = useState()
+  const [isChecked, setChecked] = useState(false)
+  
+
   const handleChange = (evt) => {
-    this.setState({
+    setTask({
       [evt.target.name]: evt.target.value
-    });
+    })
+    
   }
 
-  const handleSubmit = (evt) => {
+
+  const handleClick = (evt, activity) => {
     evt.preventDefault();
-    this.props.createActivity({ ...this.state })
+    if (!isChecked) {
+      dispatch(createActivity({[evt.target.name]: activity}))
+      setChecked(true)
+      console.log("check add", isChecked)
+    } else {
+      dispatch(deleteActivity(activity.id))
+      setChecked(false)
+      console.log("check delete", isChecked)
+    }
+    
   }
+
+  // const handleSubmit = (evt) => {
+  //   evt.preventDefault();
+  //   console.log(evt.target.value)
+  //   dispatch(createActivity(task))
+  // }
 
   return (
     <>
-      <div>
+      <div className="routine">
+        {activities.map((activity, index) => {
+          return (
+            <div className="routine-item"  key={index}>
+              <button name="activityName" onClick={(evt) => handleClick(evt, activity)} value={activity}>🗸</button>
+              <h1>{activity}</h1> 
+            </div>
+          )
+        })}
+      </div>
+    </>
+  )
+}
+
+export default AddActivity;
+
+// const AddActivity = () => {
+
+//   const handleChange = (evt) => {
+//     this.setState({
+//       [evt.target.name]: evt.target.value
+//     });
+//   }
+
+//   const handleSubmit = (evt) => {
+//     evt.preventDefault();
+//     this.props.createActivity({ ...this.state })
+//   }
+
+//   return (
+//     <>
+//       <div>
         <form className="routine" >
           <div className="routine-item">
             <input type="checkbox" name="read" value="read" />    
@@ -49,13 +104,16 @@ const AddActivity = () => {
           <div className="container">
             <button type="submit">Create Routine</button>
           </div>
-        </form>
-      </div>
-    </>
-  )
-}
+//         </form>
+//       </div>
+//     </>
+//   )
+// }
 
-export default AddActivity;
+// export default AddActivity;
+
+
+//>>>>>>>>>>************************************
 
 // class AddActivity extends React.Component {
 //   constructor() {

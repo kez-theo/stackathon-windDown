@@ -36,7 +36,7 @@ class EditRoutine extends React.Component {
                     <td>
                       <button 
                         onClick={() => this.props.deleteActivity(activity.id)}>
-                        X
+                        ✖
                       </button>
                     </td>       
                   </tr>
