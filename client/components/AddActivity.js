@@ -60,7 +60,7 @@ const AddActivity = () => {
         {activities.map((activity) => {
           return (
             <div className="routine-item"  key={activity.id}>
-                <button type="submit" onClick={() => dispatch(addActivity(activity))}>🗸</button>
+                <button type="submit" onClick={() => dispatch(addActivity(activity))} value={activity.id}>🗸</button>
               <h1>{activity.activityName}</h1> 
             </div>
           )

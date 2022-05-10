@@ -40,7 +40,7 @@ const Navbar = () => {
             {/* The navbar will show these links after you log in */}
             <div>
               <NavLink className="navItem" to="/my-room">my room</NavLink>
-              <NavLink className="navItem" to="/edit">logout</NavLink>
+              <NavLink className="navItem" to="/edit">edit</NavLink>
               {/* <NavLink className="navItem" to="/my-room" onClick={openSidenav}>edit routine</NavLink> */}
               {/* <button className="navItem" onClick={openSidenav}>routine</button> */}
               <span className="navItem" onClick={openSidenav} >routine</span>

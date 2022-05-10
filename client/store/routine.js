@@ -2,6 +2,10 @@ import axios from "axios";
 
 const TOKEN = "token";
 
+const initialState = {
+    activities: [] 
+} 
+
 //ACTIONS
 const GET_ROUTINE = "GET_ROUTINE";
 const ADD_ACTIVITY = "ADD_ACTIVITY";
@@ -53,6 +57,7 @@ export const addActivity = (activity) => {
           authorization: token,
         },
       });
+      console.log(activity)
       dispatch(_addActivity(newActivity));
     }
   }
@@ -87,14 +92,16 @@ export const removeActivity = (id) => {
 }
 
 //REDUCER
-const initialState = [];
 
 export default function routineReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ROUTINE:
       return action.routine;
     case ADD_ACTIVITY:
-      return [...state, action.activity];
+      console.log(action.activity)
+      return {...state,
+        activities: [...state.activities, action.activity]
+      };
     case UPDATE_ACTIVITY:
       return state.map((activity) => {activity.id === action.activity.id ? action.activity : activity});
     case REMOVE_ACTIVITY:

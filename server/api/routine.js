@@ -5,18 +5,23 @@ module.exports = router;
 
 router.get("/", requireToken, async (req, res, next) => {
   try {
-    const routine = await Routine.findAll({
-      attributes: {
-        include: ["id", "bedtime"]
-      },
+    const routine = await Routine.findOne({
+      attributes: ["bedtime", "userId"],
       include: [
         {
           model: Activity,
-          attributes: ["id", "activityName", "duration", "time"]
+          attributes: ["id", "activityName", "duration", "time"],
+          through: { attributes: [] },
+          required: true
         },
       ],
     });
-    res.json(routine);
+    if (routine) {
+      res.json(routine);
+    } else {
+      console.log("Add to routine!");
+      throw new Error();
+    }
   } catch (err) {
     next(err);
   }
@@ -24,27 +29,21 @@ router.get("/", requireToken, async (req, res, next) => {
 
 router.post("/", requireToken, async (req, res, next) => {
   try {
-      const routine = await Routine.findOne({
-        attributes: ["id", "bedtime"],
-        include: [
-          {
-            model: Activity,
-            attributes: ["id", "activityName", "duration", "time"],
-            through: { attributes: [] },
-            required: true,
-          },
-        ],
-      });
-      if (routine) {
-        // await routine.addActivity(routineActivity)
-        res.json(routineActivity)
-      } else {
-        const newRoutine = await Routine.create()
-        await user.setRoutine(newRoutine)
-        await newRoutine.addActivity(routineActivity)
-        res.json(routineActivity);
-      }
-      res.json(req.body)
+    console.log("req.body", req.body)
+    const routineActivity = await Activity.findByPk(req.body.id) 
+    const routine = await Routine.findOne({ 
+      attributes: ["id", "bedtime"],
+      include: [
+        {
+          model: Activity,
+          attributes: ["id", "activityName", "duration", "time"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+    console.log("routine activity", routineActivity)
+    routine.addActivity(routineActivity.id)
+    res.json(routineActivity)
   } catch (err) {
     next(err);
   }
