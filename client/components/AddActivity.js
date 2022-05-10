@@ -1,39 +1,50 @@
 import React, {useEffect, useState} from 'react'
-import { useDispatch } from "react-redux";
-import { createActivity, deleteActivity } from "../store/activities";
+import { useDispatch, useSelector } from "react-redux";
+import { addActivity, removeActivity, fetchRoutine } from "../store/routine";
+import axios from "axios";
+// import { fetchActivities } from "../store/activities";
 import { withRouter } from 'react-router'
 
-const activities = ["read", "prep for tomorrow", "tend to plants", 
-                  "meditate", "listen to music", "stretch"]
+// const activities = ["read", "prep for tomorrow", "tend to plants", 
+//                   "meditate", "listen to music", "stretch"]
 
 const AddActivity = () => {
 
   const dispatch = useDispatch()
-  const [task, setTask] = useState()
   const [isChecked, setChecked] = useState(false)
+  const [activities, setActivities] = useState([])
+
+  // const routine = useSelector((state) => state.routineReducer)
+  const routine = useSelector((state) => state.routineReducer)
   
+  // const handleChange = (evt) => {
+  //   setTask({
+  //     [evt.target.name]: evt.target.value
+  //   })
+  // }
 
-  const handleChange = (evt) => {
-    setTask({
-      [evt.target.name]: evt.target.value
-    })
-    
-  }
-
+  useEffect(() => {
+    const fetchActivities = async () => {
+      const { data: activities } = await axios.get("/api/activities")
+      setActivities(activities)
+    };
+  fetchActivities()
+  }, [])
 
   const handleClick = (evt, activity) => {
     evt.preventDefault();
     if (!isChecked) {
-      dispatch(createActivity({[evt.target.name]: activity}))
+      dispatch(addActivity(activity))
       setChecked(true)
       console.log("check add", isChecked)
     } else {
-      dispatch(deleteActivity(activity.id))
+      dispatch(removeActivity(activity.id))
       setChecked(false)
       console.log("check delete", isChecked)
     }
     
   }
+
 
   // const handleSubmit = (evt) => {
   //   evt.preventDefault();
@@ -44,11 +55,11 @@ const AddActivity = () => {
   return (
     <>
       <div className="routine">
-        {activities.map((activity, index) => {
+        {activities.map((activity) => {
           return (
-            <div className="routine-item"  key={index}>
-              <button name="activityName" onClick={(evt) => handleClick(evt, activity)} value={activity}>🗸</button>
-              <h1>{activity}</h1> 
+            <div className="routine-item"  key={activity.id}>
+              <button name="activityName" onClick={(evt) => handleClick(evt, activity)} value={activity.activityName}>🗸</button>
+              <h1>{activity.activityName}</h1> 
             </div>
           )
         })}

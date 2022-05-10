@@ -79,6 +79,12 @@ button:hover {
   color: #fff;
 }
 
+button:active {
+  border-color: #7000FF;
+  background-color : #7000FF;
+  color: #fff;
+}
+
 .three-vw {
   position: relative;
   display: flex;

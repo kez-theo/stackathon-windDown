@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { fetchRoutine } from "../store/activities";
+import { fetchRoutine } from "../store/routine";
 import {Link} from 'react-router-dom'
 
 class Routine extends React.Component {

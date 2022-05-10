@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { fetchRoutine, createActivity, deleteActivity } from "../store/activities";
+import { addActivity, removeActivity, fetchRoutine } from "../store/routine";
+import { fetchActivities } from "../store/activities";
 import AddActivity from './AddActivity';
 import { withRouter} from 'react-router'
 
@@ -12,7 +13,7 @@ class EditRoutine extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.routine.length !== this.props.routine.length) {
-      this.props.fetchRoutine()
+      this.props.fetchActivities()
     }
   }
 
@@ -55,7 +56,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchRoutine: () => dispatch(fetchRoutine()),
+  fetchActivities: () => dispatch(fetchActivities()),
   createActivity: (activity) => dispatch(createActivity(activity, history)),
   deleteActivity: (activityId) => dispatch(deleteActivity(activityId, history)),
 });

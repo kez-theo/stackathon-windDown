@@ -5,11 +5,6 @@ const Activity = db.define('activity', {
   activityName: {
     type: Sequelize.STRING,
   },
-  active: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
   duration: {
     type: Sequelize.INTEGER,
     allowNull: false,

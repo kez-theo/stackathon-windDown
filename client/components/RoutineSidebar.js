@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { fetchRoutine, createActivity, deleteActivity } from "../store/activities";
+import { createActivity, deleteActivity, fetchRoutine } from "../store/routine";
+// import { fetchActivities } from "../store/activities";
 import AddActivity from './AddActivity';
 
 const RoutineSidebar = (props) => {
@@ -9,9 +10,9 @@ const RoutineSidebar = (props) => {
 
   const routine = useSelector((state) => state.routineReducer)
 
-  useEffect(() => {
-    dispatch(fetchRoutine());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchRoutine());
+  // }, []);
 
   return (
     <div className='sidenav' style={{ width: props.width, paddingTop: "20px" }} >
