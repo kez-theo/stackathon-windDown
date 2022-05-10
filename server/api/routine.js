@@ -5,16 +5,14 @@ module.exports = router;
 
 router.get("/", requireToken, async (req, res, next) => {
   try {
-    const routine = await Routine.findOne({
-      where: {
-        userId: req.user.id,
+    const routine = await Routine.findAll({
+      attributes: {
+        include: ["id", "bedtime"]
       },
       include: [
         {
           model: Activity,
-          attributes: ["id", "activityName", "duration", "time"],
-          through: { attributes: [] },
-          required: true,
+          attributes: ["id", "activityName", "duration", "time"]
         },
       ],
     });
@@ -24,32 +22,29 @@ router.get("/", requireToken, async (req, res, next) => {
   }
 });
 
-router.post("/", requireToken, async (res, req, next) => {
+router.post("/", requireToken, async (req, res, next) => {
   try {
-    const routineActivity = await Activity.findByPk(req.body.id) 
-    const user = req.user.id     
-    console.log(req.user)
-    const routine = await Routine.findOne({
-      attributes: ["id", "bedtime"],
-      include: [
-        {
-          model: Activity,
-          attributes: ["id", "activityName", "duration", "time"],
-          through: { attributes: [] },
-          required: true,
-        },
-      ],
-    });
-    if (routine) {
-      await routineActivity.setRoutine(routine.id)
-      res.json(routineActivity)
-    } else {
-      const newRoutine = await Routine.create({
-        userId: req.user.id
-      })
-      await routineActivity.setRoutine(newRoutine.id)
-      res.json(routineActivity);
-    }
+      const routine = await Routine.findOne({
+        attributes: ["id", "bedtime"],
+        include: [
+          {
+            model: Activity,
+            attributes: ["id", "activityName", "duration", "time"],
+            through: { attributes: [] },
+            required: true,
+          },
+        ],
+      });
+      if (routine) {
+        // await routine.addActivity(routineActivity)
+        res.json(routineActivity)
+      } else {
+        const newRoutine = await Routine.create()
+        await user.setRoutine(newRoutine)
+        await newRoutine.addActivity(routineActivity)
+        res.json(routineActivity);
+      }
+      res.json(req.body)
   } catch (err) {
     next(err);
   }

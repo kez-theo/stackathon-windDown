@@ -9,7 +9,7 @@ const Routine = require('./models/Routine')
 //associations could go here!
 const routine_activities = db.define("routine_activities", {}, { timestamps: false });
 
-User.hasOne(Routine)
+User.hasMany(Routine)
 Routine.belongsTo(User)
 Activity.belongsToMany(Routine, { through: "routine_activities" });
 Routine.belongsToMany(Activity, { through: "routine_activities" });

@@ -25,6 +25,7 @@ async function seed() {
   const [
     cody,
     murphy,
+    timmy,
   ] = users;
   const [
     read,
@@ -45,12 +46,13 @@ async function seed() {
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${activities.length} activities`)
   console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
+  // return {
+  //   users: {
+  //     cody: users[1],
+  //     murphy: users[2],
+  //     timmy: users[3]
+  //   }
+  // }
 }
 
 /*

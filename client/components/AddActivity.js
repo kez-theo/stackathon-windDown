@@ -2,11 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { addActivity, removeActivity, fetchRoutine } from "../store/routine";
 import axios from "axios";
-// import { fetchActivities } from "../store/activities";
-import { withRouter } from 'react-router'
-
-// const activities = ["read", "prep for tomorrow", "tend to plants", 
-//                   "meditate", "listen to music", "stretch"]
 
 const AddActivity = () => {
 
@@ -31,26 +26,33 @@ const AddActivity = () => {
   fetchActivities()
   }, [])
 
-  const handleClick = (evt, activity) => {
-    evt.preventDefault();
-    if (!isChecked) {
-      dispatch(addActivity(activity))
-      setChecked(true)
-      console.log("check add", isChecked)
-    } else {
-      dispatch(removeActivity(activity.id))
-      setChecked(false)
-      console.log("check delete", isChecked)
-    }
-    
-  }
+  // const handleClick = (evt, activity) => {
+  //   evt.preventDefault();
+  //   if (!isChecked) {
+  //     dispatch(addActivity(activity))
+  //     setChecked(true)
+  //     console.log("check add", isChecked)
+  //   } else {
+  //     dispatch(removeActivity(activity.id))
+  //     setChecked(false)
+  //     console.log("check delete", isChecked)
+  //   }
+  // }
 
+  const handleClick = (evt) => {
+    evt.preventDefault();
+    console.log(evt.target.value)
+    dispatch(addActivity({
+      [evt.target.name]: evt.target.value
+    }))
+  }
 
   // const handleSubmit = (evt) => {
   //   evt.preventDefault();
   //   console.log(evt.target.value)
   //   dispatch(createActivity(task))
   // }
+  // onClick={(evt) => handleClick(evt, activity)}
 
   return (
     <>
@@ -58,7 +60,7 @@ const AddActivity = () => {
         {activities.map((activity) => {
           return (
             <div className="routine-item"  key={activity.id}>
-              <button name="activityName" onClick={(evt) => handleClick(evt, activity)} value={activity.activityName}>🗸</button>
+                <button type="submit" onClick={() => dispatch(addActivity(activity))}>🗸</button>
               <h1>{activity.activityName}</h1> 
             </div>
           )
@@ -69,60 +71,6 @@ const AddActivity = () => {
 }
 
 export default AddActivity;
-
-// const AddActivity = () => {
-
-//   const handleChange = (evt) => {
-//     this.setState({
-//       [evt.target.name]: evt.target.value
-//     });
-//   }
-
-//   const handleSubmit = (evt) => {
-//     evt.preventDefault();
-//     this.props.createActivity({ ...this.state })
-//   }
-
-//   return (
-//     <>
-//       <div>
-        <form className="routine" >
-          <div className="routine-item">
-            <input type="checkbox" name="read" value="read" />    
-            <label for="read">read</label>
-          </div>
-          <div className="routine-item">
-            <input type="checkbox" name="prep" value="prep" />
-            <label for="prep">prep for tomorrow</label>
-          </div>
-          <div className="routine-item">
-            <input type="checkbox" name="plants" value="plants" />
-            <label for="plants">tend to plants</label> 
-          </div>
-          <div className="routine-item">
-            <input type="checkbox" name="meditate" value="meditate" />
-            <label for="meditate">meditate</label>  
-          </div>
-          <div className="routine-item">
-            <input type="checkbox" name="music" value="music" />
-            <label for="music">listen to music</label>
-          </div>
-
-          <div className="routine-item">
-            <input type="checkbox" name="stretch" value="stretch" />
-            <label for="stretch">stretch</label>
-          </div>
-          <div className="container">
-            <button type="submit">Create Routine</button>
-          </div>
-//         </form>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default AddActivity;
-
 
 //>>>>>>>>>>************************************
 

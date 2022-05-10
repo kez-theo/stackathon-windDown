@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
-const axios = require('axios');
+const Routine = require('./Routine')
 
 const SALT_ROUNDS = 5;
 
@@ -72,9 +72,17 @@ const hashPassword = async(user) => {
   }
 }
 
+const addRoutine = async(user) => {
+  const routine = await Routine.create()
+  routine.setUser(user)
+}
+
 User.beforeCreate(hashPassword)
 User.beforeUpdate(hashPassword)
 User.beforeBulkCreate(users => Promise.all(users.map(hashPassword)))
+
+User.afterCreate(addRoutine)
+User.afterBulkCreate(users => Promise.all(users.map(addRoutine)))
 
 
 // bedtime: {
