@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { createActivity, deleteActivity, fetchRoutine } from "../store/routine";
+import { addActivity, removeActivity, fetchRoutine } from "../store/routine";
 // import { fetchActivities } from "../store/activities";
 import AddActivity from './AddActivity';
 

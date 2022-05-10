@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const { models: { User, Activity, Routine} } = require("../db");
-const { requireToken, isAdmin } = require("./gatekeepingMiddleware");
+const { requireToken } = require("./gatekeepingMiddleware");
 module.exports = router;
 
 router.get("/", requireToken, async (req, res, next) => {
   try {
     const routine = await Routine.findOne({
       where: {
-        userId: req.userId,
+        userId: req.user.id,
       },
       include: [
         {
@@ -26,8 +26,9 @@ router.get("/", requireToken, async (req, res, next) => {
 
 router.post("/", requireToken, async (res, req, next) => {
   try {
-    // const routineActivity = await Activity.findByPk(req.body.id)      
-    // console.log(req.user.id)
+    const routineActivity = await Activity.findByPk(req.body.id) 
+    const user = req.user.id     
+    console.log(req.user)
     const routine = await Routine.findOne({
       attributes: ["id", "bedtime"],
       include: [

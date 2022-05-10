@@ -27,10 +27,10 @@ const Home = (state) => {
 
   return (
     <div>
-       <div className='container'>
+       {/* <div className='container'>
           <button className="navItem" onClick={openSidenav}>routine</button>
        </div>
-      <RoutineSidebar name={"Hello Moon!"} width={width} closeNav={closeSidenav}/>
+      <RoutineSidebar name={"Hello Moon!"} width={width} closeNav={closeSidenav}/> */}
       <Three />
     </div>
   )
