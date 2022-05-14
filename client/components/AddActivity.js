@@ -11,12 +11,6 @@ const AddActivity = () => {
 
   // const routine = useSelector((state) => state.routineReducer)
   const routine = useSelector((state) => state.routineReducer)
-  
-  // const handleChange = (evt) => {
-  //   setTask({
-  //     [evt.target.name]: evt.target.value
-  //   })
-  // }
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -25,6 +19,19 @@ const AddActivity = () => {
     };
   fetchActivities()
   }, [])
+
+  const routineHash = (routine) => {
+    const routineTable = {}
+    if (!routine || routine.length === 0) return
+    for (let i = 0; i < routine.length; i++) {
+      const activity = routine[i];
+      routineTable[activity.id] = routineTable[activity]
+    }
+    return routineTable;
+  }
+
+  const userRoutine = routineHash(routine)  
+
 
   // const handleClick = (evt, activity) => {
   //   evt.preventDefault();
@@ -39,20 +46,6 @@ const AddActivity = () => {
   //   }
   // }
 
-  const handleClick = (evt) => {
-    evt.preventDefault();
-    console.log(evt.target.value)
-    dispatch(addActivity({
-      [evt.target.name]: evt.target.value
-    }))
-  }
-
-  // const handleSubmit = (evt) => {
-  //   evt.preventDefault();
-  //   console.log(evt.target.value)
-  //   dispatch(createActivity(task))
-  // }
-  // onClick={(evt) => handleClick(evt, activity)}
 
   return (
     <>
@@ -60,8 +53,12 @@ const AddActivity = () => {
         {activities.map((activity) => {
           return (
             <div className="routine-item"  key={activity.id}>
-                <button type="submit" onClick={() => dispatch(addActivity(activity))} value={activity.id}>🗸</button>
-              <h1>{activity.activityName}</h1> 
+                <button 
+                  type="submit" 
+                  onChange={() => dispatch(addActivity(activity))} 
+                  value={activity.id}
+                >🗸</button>
+              <h2>{activity.activityName}</h2> 
             </div>
           )
         })}

@@ -15,26 +15,26 @@ async function seed() {
     User.create({ username: 'timmy', password: '123'}),
   ]);
   const activities = await Promise.all([
-    Activity.create({ activityName: 'read', duration: '30', time: 0}),
-    Activity.create({ activityName: 'prep for tomorrow', duration: '45', time: 0}),
-    Activity.create({ activityName: 'listen to music', duration: '15', time: 0}),
-    Activity.create({ activityName: 'tend to plants', duration: '30', time: 0}),
-    Activity.create({ activityName: 'meditate', duration: '30', time: 0}),
-    Activity.create({ activityName: 'stretch', duration: '30', time: 0}),
+    Activity.create({ activityName: 'read', active: false, duration: '5', time: 0}),
+    Activity.create({ activityName: 'prep for tomorrow', active: false, duration: '5', time: 0}),
+    Activity.create({ activityName: 'listen to music', active: false, duration: '5', time: 0}),
+    Activity.create({ activityName: 'tend to plants', active: false, duration: '5', time: 0}),
+    Activity.create({ activityName: 'meditate', active: false, duration: '5', time: 0}),
+    Activity.create({ activityName: 'stretch', active: false, duration: '5', time: 0}),
   ]);
-  const [
-    cody,
-    murphy,
-    timmy,
-  ] = users;
-  const [
-    read,
-    prep,
-    music,
-    plants,
-    meditate,
-    stretch
-  ] = activities;
+  // const [
+  //   cody,
+  //   murphy,
+  //   timmy,
+  // ] = users;
+  // const [
+  //   read,
+  //   prep,
+  //   music,
+  //   plants,
+  //   meditate,
+  //   stretch
+  // ] = activities;
   // await read.setUser(murphy)
   // await prep.setUser(cody)
   // await music.setUser(murphy)
@@ -44,7 +44,7 @@ async function seed() {
   // await stretch.setUser(cody)
   
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${activities.length} activities`)
+  // console.log(`seeded ${activities.length} activities`)
   console.log(`seeded successfully`)
   // return {
   //   users: {

@@ -6,7 +6,7 @@ module.exports = router;
 router.get("/", requireToken, async (req, res, next) => {
   try {
     const routine = await Routine.findOne({
-      attributes: ["bedtime", "userId"],
+      attributes: ["bedtime"],
       include: [
         {
           model: Activity,

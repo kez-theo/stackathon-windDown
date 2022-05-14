@@ -3,6 +3,7 @@ const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const Routine = require('./Routine')
+const Activity = require('./Activity')
 
 const SALT_ROUNDS = 5;
 
