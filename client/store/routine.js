@@ -8,6 +8,7 @@ const initialState = {
 
 //ACTIONS
 const GET_ROUTINE = "GET_ROUTINE";
+const CREATE_ROUTINE = "CREATE_ROUTINE";
 const ADD_ACTIVITY = "ADD_ACTIVITY";
 const UPDATE_ACTIVITY = "UPDATE_ACTIVITY";
 const REMOVE_ACTIVITY = "DELETE_ACTIVITY";
@@ -16,6 +17,11 @@ const REMOVE_ACTIVITY = "DELETE_ACTIVITY";
 export const getRoutine = (routine) => ({
   type: GET_ROUTINE,
   routine,
+});
+
+export const setRoutine = (activities) => ({
+  type: CREATE_ROUTINE,
+  activities,
 });
 
 export const _addActivity = (activity) => ({
@@ -47,6 +53,21 @@ export const fetchRoutine = () => {
     }
   };
 };
+
+export const createRoutine = (activities) => {
+  return async (dispatch) => {
+    const token = window.localStorage.getItem(TOKEN);
+    if (token) {
+      const { data: routineActivities } = await axios.post("/api/routine", activities, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log("thunk", routineActivities)
+      dispatch(setRoutine(routineActivities));
+    }
+  }
+}
 
 export const addActivity = (activity) => {
   return async (dispatch) => {
@@ -96,7 +117,13 @@ export const removeActivity = (id) => {
 export default function routineReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ROUTINE:
+      console.log("state", state)
       return action.routine;
+    case CREATE_ROUTINE:
+      console.log("reducer", action.activities)
+      return {...state,
+        activities: [...state.activities, action.activities]
+      };
     case ADD_ACTIVITY:
       console.log(action.activity)
       return {...state,

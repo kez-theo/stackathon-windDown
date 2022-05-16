@@ -5,18 +5,52 @@ module.exports = router;
 
 router.get("/", requireToken, async (req, res, next) => {
   try {
+    console.log(req.user)
     const routine = await Routine.findOne({
-      attributes: ["bedtime"],
+      where: {
+        userId: req.user.id
+      },
+      attributes: ["id","bedtime"],
       include: [
         {
           model: Activity,
-          attributes: ["id", "activityName", "duration", "time"],
+          attributes: ["id", "activityName", "active", "duration", "time"],
           through: { attributes: [] },
           required: true
         },
       ],
     });
     if (routine) {
+      res.json(routine);
+    } else {
+      const newRoutine = await Routine.create()
+      newRoutine.setUser(req.user.id)
+      res.json(newRoutine);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/", requireToken, async (req, res, next) => {
+  try {
+    const routine = await Routine.findOne({
+      where: {
+        userId: req.user.id
+      },
+      attributes: ["id","bedtime"],
+      include: [
+        {
+          model: Activity,
+          attributes: ["id", "activityName", "active", "duration", "time"],
+          through: { attributes: [] },
+          required: true
+        },
+      ],
+    });
+    const activities = await Activity.findAll()
+    if (routine.activities.length ===0) {
+      routine.addActivities(activities)
       res.json(routine);
     } else {
       console.log("Add to routine!");
@@ -27,27 +61,27 @@ router.get("/", requireToken, async (req, res, next) => {
   }
 });
 
-router.post("/", requireToken, async (req, res, next) => {
-  try {
-    console.log("req.body", req.body)
-    const routineActivity = await Activity.findByPk(req.body.id) 
-    const routine = await Routine.findOne({ 
-      attributes: ["id", "bedtime"],
-      include: [
-        {
-          model: Activity,
-          attributes: ["id", "activityName", "duration", "time"],
-          through: { attributes: [] },
-        },
-      ],
-    });
-    console.log("routine activity", routineActivity)
-    routine.addActivity(routineActivity.id)
-    res.json(routineActivity)
-  } catch (err) {
-    next(err);
-  }
-});
+// router.post("/", requireToken, async (req, res, next) => {
+//   try {
+//     console.log("req.body", req.body)
+//     const routineActivity = await Activity.findByPk(req.body.id) 
+//     const routine = await Routine.findOne({ 
+//       attributes: ["id", "bedtime"],
+//       include: [
+//         {
+//           model: Activity,
+//           attributes: ["id", "activityName", "duration", "time"],
+//           through: { attributes: [] },
+//         },
+//       ],
+//     });
+//     console.log("routine activity", routineActivity)
+//     routine.addActivity(routineActivity.id)
+//     res.json(routineActivity)
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 //Will need to use a token to modify data in the future. Look at file auth/index.
 router.put("/:id", async (req, res, next) => {

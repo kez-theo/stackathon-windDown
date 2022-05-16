@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { addActivity, removeActivity, fetchRoutine } from "../store/routine";
+import { createRoutine, addActivity, removeActivity, fetchRoutine } from "../store/routine";
 import axios from "axios";
 
 const AddActivity = () => {
@@ -18,19 +18,24 @@ const AddActivity = () => {
       setActivities(activities)
     };
   fetchActivities()
+  dispatch(fetchRoutine())
   }, [])
 
-  const routineHash = (routine) => {
-    const routineTable = {}
-    if (!routine || routine.length === 0) return
-    for (let i = 0; i < routine.length; i++) {
-      const activity = routine[i];
-      routineTable[activity.id] = routineTable[activity]
-    }
-    return routineTable;
-  }
+  console.log("component - routine", routine)
+  console.log("component - routine.activities", routine)
+  console.log("component - activities", activities)
 
-  const userRoutine = routineHash(routine)  
+  // const routineHash = (routine) => {
+  //   const routineTable = {}
+  //   if (!routine || routine.length === 0) return
+  //   for (let i = 0; i < routine.length; i++) {
+  //     const activity = routine[i];
+  //     routineTable[activity.id] = routineTable[activity]
+  //   }
+  //   return routineTable;
+  // }
+
+  // const userRoutine = routineHash(routine)  
 
 
   // const handleClick = (evt, activity) => {
@@ -50,18 +55,30 @@ const AddActivity = () => {
   return (
     <>
       <div className="routine">
-        {activities.map((activity) => {
-          return (
-            <div className="routine-item"  key={activity.id}>
-                <button 
-                  type="submit" 
-                  onChange={() => dispatch(addActivity(activity))} 
-                  value={activity.id}
-                >🗸</button>
-              <h2>{activity.activityName}</h2> 
-            </div>
-          )
-        })}
+        {!routine.activities ? (
+          <>
+            <button 
+              type="button" 
+              onClick={() => dispatch(createRoutine(activities))} 
+              // value={activity.id}
+            >Create Routine</button>
+          </>
+        ) : (
+          <>
+          {routine.activities.map((activity) => {
+            return (
+              <div className="routine-item"  key={activity.id}>
+                  <button 
+                    type="submit" 
+                    onChange={() => dispatch(addActivity(activity))} 
+                    value={activity.id}
+                  >🗸</button>
+                <h2>{activity.activityName}</h2> 
+              </div>
+            )
+          })}
+          </>
+        )}
       </div>
     </>
   )
