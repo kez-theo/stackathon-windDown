@@ -5,7 +5,6 @@ module.exports = router;
 
 router.get("/", requireToken, async (req, res, next) => {
   try {
-    console.log(req.user)
     const routine = await Routine.findOne({
       where: {
         userId: req.user.id
@@ -22,11 +21,7 @@ router.get("/", requireToken, async (req, res, next) => {
     });
     if (routine) {
       res.json(routine);
-    } else {
-      const newRoutine = await Routine.create()
-      newRoutine.setUser(req.user.id)
-      res.json(newRoutine);
-    }
+    } 
   } catch (err) {
     next(err);
   }
@@ -49,9 +44,12 @@ router.post("/", requireToken, async (req, res, next) => {
       ],
     });
     const activities = await Activity.findAll()
-    if (routine.activities.length ===0) {
-      routine.addActivities(activities)
-      res.json(routine);
+    console.log(activities)
+    if (!routine) {
+      const newRoutine = await Routine.create()
+      newRoutine.setUser(req.user.id)
+      newRoutine.addActivities(activities)
+      res.json(newRoutine);
     } else {
       console.log("Add to routine!");
       throw new Error();
@@ -84,27 +82,46 @@ router.post("/", requireToken, async (req, res, next) => {
 // });
 
 //Will need to use a token to modify data in the future. Look at file auth/index.
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", requireToken, async (req, res, next) => {
   try {
-    const activity = await routine.getActivity(req.params.id);
+    // const routine = await Routine.findOne({
+    //   where: {
+    //     userId: req.user.id,
+    //   },
+    //   attributes: ["id", "bedtime"],
+    //   include: [
+    //     {
+    //       model: Activity,
+    //       attributes: ["id", "activityName", "duration", "time"],
+    //       through: { attributes: [] },
+    //       required: true,
+    //     },
+    //   ],
+    // });
     const routine = await Routine.findOne({
       where: {
-        userId: req.userId,
+        userId: req.user.id,
       },
       attributes: ["id", "bedtime"],
-      include: [
-        {
-          model: Activity,
-          attributes: ["id", "activityName", "duration", "time"],
-          through: { attributes: [] },
-          required: true,
-        },
-      ],
+      include: [{
+        model: Activity,
+        where: {
+          id: req.params.id
+        }
+      }]
     });
-    if (activity) {
-      const updatedActivity = activity.update(req.body)
-      res.json(await routine.setActivity(updatedActivity));
+    const activity = routine.activities[0]
+    if (!activity.active) {
+      await activity.update({
+        active: true 
+      })
+    } else {
+      await activity.update({
+        active: false
+      })
     }
+    // routine.setActivities(activity.id)
+    res.json(activity)
   } catch (err) {
     next(err);
   }

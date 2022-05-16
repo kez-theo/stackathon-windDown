@@ -9,9 +9,9 @@ const initialState = {
 //ACTIONS
 const GET_ROUTINE = "GET_ROUTINE";
 const CREATE_ROUTINE = "CREATE_ROUTINE";
-const ADD_ACTIVITY = "ADD_ACTIVITY";
+// const ADD_ACTIVITY = "ADD_ACTIVITY";
 const UPDATE_ACTIVITY = "UPDATE_ACTIVITY";
-const REMOVE_ACTIVITY = "DELETE_ACTIVITY";
+// const REMOVE_ACTIVITY = "DELETE_ACTIVITY";
 
 //ACTION CREATORS
 export const getRoutine = (routine) => ({
@@ -24,20 +24,20 @@ export const setRoutine = (activities) => ({
   activities,
 });
 
-export const _addActivity = (activity) => ({
-  type: ADD_ACTIVITY,
-  activity,
-});
+// export const _addActivity = (activity) => ({
+//   type: ADD_ACTIVITY,
+//   activity,
+// });
 
 export const editActivity = (activity) => ({
   type: UPDATE_ACTIVITY,
   id: activity.id,
 });
 
-export const _removeActivity = (activity) => ({
-  type: REMOVE_ACTIVITY,
-  activity,
-});
+// export const _removeActivity = (activity) => ({
+//   type: REMOVE_ACTIVITY,
+//   activity,
+// });
 
 //THUNKS
 export const fetchRoutine = () => {
@@ -63,26 +63,25 @@ export const createRoutine = (activities) => {
           authorization: token,
         },
       });
-      console.log("thunk", routineActivities)
       dispatch(setRoutine(routineActivities));
     }
   }
 }
 
-export const addActivity = (activity) => {
-  return async (dispatch) => {
-    const token = window.localStorage.getItem(TOKEN);
-    if (token) {
-      const { data: newActivity } = await axios.post("/api/routine", activity, {
-        headers: {
-          authorization: token,
-        },
-      });
-      console.log(activity)
-      dispatch(_addActivity(newActivity));
-    }
-  }
-}
+// export const addActivity = (activity) => {
+//   return async (dispatch) => {
+//     const token = window.localStorage.getItem(TOKEN);
+//     if (token) {
+//       const { data: newActivity } = await axios.post("/api/routine", activity, {
+//         headers: {
+//           authorization: token,
+//         },
+//       });
+//       console.log(activity)
+//       dispatch(_addActivity(newActivity));
+//     }
+//   }
+// }
 
 export const updateActivity = (activity) => {
   return async (dispatch) => {
@@ -98,19 +97,19 @@ export const updateActivity = (activity) => {
   }
 }
 
-export const removeActivity = (id) => {
-  return async (dispatch) => {
-    const token = window.localStorage.getItem(TOKEN);
-    if (token) {
-      const { data: activity } = await axios.delete(`/api/activities/${id}`, {
-        headers: {
-          authorization: token,
-        },
-      });
-      dispatch(_removeActivity(activity));
-    }
-  }
-}
+// export const removeActivity = (id) => {
+//   return async (dispatch) => {
+//     const token = window.localStorage.getItem(TOKEN);
+//     if (token) {
+//       const { data: activity } = await axios.delete(`/api/activities/${id}`, {
+//         headers: {
+//           authorization: token,
+//         },
+//       });
+//       dispatch(_removeActivity(activity));
+//     }
+//   }
+// }
 
 //REDUCER
 
@@ -124,15 +123,15 @@ export default function routineReducer(state = initialState, action) {
       return {...state,
         activities: [...state.activities, action.activities]
       };
-    case ADD_ACTIVITY:
-      console.log(action.activity)
-      return {...state,
-        activities: [...state.activities, action.activity]
-      };
+    // case ADD_ACTIVITY:
+    //   console.log(action.activity)
+    //   return {...state,
+    //     activities: [...state.activities, action.activity]
+    //   };
     case UPDATE_ACTIVITY:
       return state.map((activity) => {activity.id === action.activity.id ? action.activity : activity});
-    case REMOVE_ACTIVITY:
-      return state.filter((activity) => activity.id !== action.activity.id);
+    // case REMOVE_ACTIVITY:
+    //   return state.filter((activity) => activity.id !== action.activity.id);
     default:
       return state;
   }
