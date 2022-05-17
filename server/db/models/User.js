@@ -2,12 +2,11 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
-const Routine = require('./Routine')
 const Activity = require('./Activity')
 
 const SALT_ROUNDS = 5;
 
-const User = db.define('user', {
+const User = db.define('users', {
   username: {
     type: Sequelize.STRING,
     unique: true,

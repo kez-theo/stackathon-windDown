@@ -2,9 +2,7 @@ import axios from "axios";
 
 const TOKEN = "token";
 
-const initialState = {
-  activities: []
-}
+const initialState = {}
 
 //ACTIONS
 const GET_ROUTINE = "GET_ROUTINE";
@@ -116,7 +114,6 @@ export const updateActivity = (activity) => {
 export default function routineReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ROUTINE:
-      console.log("state", state)
       return action.routine;
     case CREATE_ROUTINE:
       console.log("reducer", action.activities)

@@ -3,21 +3,13 @@ const { models: { User, Activity, RoutineActivity} } = require("../db");
 const { requireToken } = require("./gatekeepingMiddleware");
 module.exports = router;
 
+//get user's routine
 router.get("/", requireToken, async (req, res, next) => {
   try {
     const routine = await RoutineActivity.findAll({
       where: {
         userId: req.user.id
       },
-      // include: [
-      //   {
-      //     model: Activity,
-      //     as: 'activity',
-      //     attributes: ["id", "activityName"],
-      //     through: { attributes: [] },
-      //     required: true
-      //   },
-      // ],
     });
     if (routine) {
       res.json(routine);
@@ -27,17 +19,7 @@ router.get("/", requireToken, async (req, res, next) => {
   }
 });
 
-// for (let i = 0; i < activities.length; i++) {
-//   let activity = activities[i]
-//   activity.activityName = activities[i].activityName
-//   await user.addActivity(activity)
-// };
-// const routine = await RoutineActivity.findAll({
-//   where: {
-//     userId: req.user.id
-//   },
-// })
-
+//create user's routine
 router.post("/", requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.user.id)
@@ -88,32 +70,13 @@ router.post("/", requireToken, async (req, res, next) => {
 //   }
 // });
 
-//Will need to use a token to modify data in the future. Look at file auth/index.
-router.put("/:id", requireToken, async (req, res, next) => {
+//add or delete items from user's routine
+router.put("/:activityId", requireToken, async (req, res, next) => {
   try {
-    // const routine = await Routine.findOne({
-    //   where: {
-    //     userId: req.user.id,
-    //   },
-    //   attributes: ["id", "bedtime"],
-    //   include: [
-    //     {
-    //       model: Activity,
-    //       attributes: ["id", "activityName", "duration", "time"],
-    //       through: { attributes: [] },
-    //       required: true,
-    //     },
-    //   ],
-    // });
-    const routine = await Routine.findOne({
-      where: {
-        userId: req.user.id,
-      },
-    });
     const activity = await RoutineActivity.findOne({
       where: {
-        routineId: routine.id,
-        activityId: req.params.id,
+        userId: req.user.id,
+        activityId: req.params.activityId,
       },
     });
     if (!activity.active) {
