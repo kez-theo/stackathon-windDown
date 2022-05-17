@@ -9,6 +9,16 @@ router.get("/", requireToken, async (req, res, next) => {
       where: {
         userId: req.user.id
       },
+      attributes: ["id","bedtime"],
+      include: [
+        {
+          model: Activity,
+          as: 'activity',
+          attributes: ["id", "activityName", "active", "duration", "time"],
+          through: { attributes: [] },
+          required: true
+        },
+      ],
     });
     const routineActivities = await RoutineActivity.findAll({
       where: {

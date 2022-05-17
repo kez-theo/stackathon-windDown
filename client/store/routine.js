@@ -2,7 +2,9 @@ import axios from "axios";
 
 const TOKEN = "token";
 
-const initialState = []
+const initialState = {
+  activities: []
+}
 
 //ACTIONS
 const GET_ROUTINE = "GET_ROUTINE";
