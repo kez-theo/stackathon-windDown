@@ -1,13 +1,12 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const Activity = require('./Activity')
 
 const RoutineActivity = db.define('routine_activities', {
-  routineId: {
+  userId: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: 'routine',
+      model: 'users',
       key: 'id'
     }
   },
@@ -15,7 +14,7 @@ const RoutineActivity = db.define('routine_activities', {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: 'activity',
+      model: 'activities',
       key: 'id'
     }
   },
@@ -23,6 +22,10 @@ const RoutineActivity = db.define('routine_activities', {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  activityName: {
+    type: Sequelize.STRING,
+    allowNull: false
   },
   duration: {
     type: Sequelize.INTEGER,

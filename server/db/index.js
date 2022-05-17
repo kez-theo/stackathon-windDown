@@ -4,34 +4,27 @@ const db = require('./db')
 
 const User = require('./models/User')
 const Activity = require('./models/Activity')
-const Routine = require('./models/Routine')
 const RoutineActivity = require('./models/RoutineActivity')
 
 //associations could go here!
-
-User.hasMany(Routine)
-Routine.belongsTo(User)
-
-Activity.belongsToMany(Routine, { 
-  as: "routine",
+Activity.belongsToMany(User, { 
+  as: "users",
   through: "routine_activities",
   foreignKey: "activityId"
 });
 
-Routine.belongsToMany(Activity, { 
-  as: "activity",
+User.belongsToMany(Activity, { 
+  as: "activities",
   through: "routine_activities",
-  foreignKey: "routineId" 
+  foreignKey: "userId" 
 
 });
-
 
 module.exports = {
   db,
   models: {
     User,
     Activity,
-    Routine,
     RoutineActivity
   },
 }

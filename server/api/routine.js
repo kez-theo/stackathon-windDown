@@ -1,65 +1,64 @@
 const router = require("express").Router();
-const { models: { User, Activity, Routine, RoutineActivity} } = require("../db");
+const { models: { User, Activity, RoutineActivity} } = require("../db");
 const { requireToken } = require("./gatekeepingMiddleware");
 module.exports = router;
 
 router.get("/", requireToken, async (req, res, next) => {
   try {
-    const routine = await Routine.findOne({
+    const routine = await RoutineActivity.findAll({
       where: {
         userId: req.user.id
       },
-      attributes: ["id","bedtime"],
-      include: [
-        {
-          model: Activity,
-          as: 'activity',
-          attributes: ["id", "activityName", "active", "duration", "time"],
-          through: { attributes: [] },
-          required: true
-        },
-      ],
+      // include: [
+      //   {
+      //     model: Activity,
+      //     as: 'activity',
+      //     attributes: ["id", "activityName"],
+      //     through: { attributes: [] },
+      //     required: true
+      //   },
+      // ],
     });
-    const routineActivities = await RoutineActivity.findAll({
-      where: {
-        routineId: routine.id,
-      },
-    });
-    if (routineActivities) {
-      res.json(routineActivities);
+    if (routine) {
+      res.json(routine);
     } 
   } catch (err) {
     next(err);
   }
 });
 
+// for (let i = 0; i < activities.length; i++) {
+//   let activity = activities[i]
+//   activity.activityName = activities[i].activityName
+//   await user.addActivity(activity)
+// };
+// const routine = await RoutineActivity.findAll({
+//   where: {
+//     userId: req.user.id
+//   },
+// })
+
 router.post("/", requireToken, async (req, res, next) => {
   try {
-    const routine = await Routine.findOne({
+    const user = await User.findByPk(req.user.id)
+    const activities = await Activity.findAll()
+    for (let i = 0; i < activities.length; i++) {
+      let activity = activities[i]
+      await user.addActivity(activity, 
+        { through: {
+        activityName: activities[i].activityName
+        }
+      })
+    };
+    const routine = await RoutineActivity.findAll({
       where: {
         userId: req.user.id
       },
-      attributes: ["id","bedtime"],
-      include: [
-        {
-          model: Activity,
-          as: 'activity',
-          attributes: ["id", "activityName", "active", "duration", "time"],
-          through: { attributes: [] },
-          required: true
-        },
-      ],
-    });
-    const activities = await Activity.findAll()
-    console.log(activities)
-    if (!routine) {
-      const newRoutine = await Routine.create()
-      newRoutine.setUser(req.user.id)
-      newRoutine.addActivity(activities)
-      console.log(newRoutine)
-      res.json(newRoutine);
+    })
+    if (routine) {
+      res.json(routine);
     } else {
-      console.log("Add to routine!");
+      console.log("create routine error!");
       throw new Error();
     }
   } catch (err) {

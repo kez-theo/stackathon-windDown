@@ -15,12 +15,12 @@ async function seed() {
     User.create({ username: 'timmy', password: '123'}),
   ]);
   const activities = await Promise.all([
-    Activity.create({ activityName: 'read', active: false, duration: '5', time: 0}),
-    Activity.create({ activityName: 'prep for tomorrow', active: false, duration: '5', time: 0}),
-    Activity.create({ activityName: 'listen to music', active: false, duration: '5', time: 0}),
-    Activity.create({ activityName: 'tend to plants', active: false, duration: '5', time: 0}),
-    Activity.create({ activityName: 'meditate', active: false, duration: '5', time: 0}),
-    Activity.create({ activityName: 'stretch', active: false, duration: '5', time: 0}),
+    Activity.create({ activityName: 'read', time: 0}),
+    Activity.create({ activityName: 'prep for tomorrow', time: 0}),
+    Activity.create({ activityName: 'listen to music', time: 0}),
+    Activity.create({ activityName: 'tend to plants', time: 0}),
+    Activity.create({ activityName: 'meditate', time: 0}),
+    Activity.create({ activityName: 'stretch', time: 0}),
   ]);
   // const [
   //   cody,
@@ -44,7 +44,7 @@ async function seed() {
   // await stretch.setUser(cody)
   
   console.log(`seeded ${users.length} users`)
-  // console.log(`seeded ${activities.length} activities`)
+  console.log(`seeded ${activities.length} activities`)
   console.log(`seeded successfully`)
   // return {
   //   users: {

@@ -1,25 +1,10 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Activity = db.define('activity', {
+const Activity = db.define('activities', {
   activityName: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
-  },
-  active: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false
-  },
-  duration: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 5,
-    validate: { 
-      min: 5, 
-      max: 60 
-    }
   },
   time: {
     type: Sequelize.INTEGER,
