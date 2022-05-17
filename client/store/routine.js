@@ -2,9 +2,7 @@ import axios from "axios";
 
 const TOKEN = "token";
 
-const initialState = {
-    activities: [] 
-} 
+const initialState = []
 
 //ACTIONS
 const GET_ROUTINE = "GET_ROUTINE";
@@ -120,9 +118,7 @@ export default function routineReducer(state = initialState, action) {
       return action.routine;
     case CREATE_ROUTINE:
       console.log("reducer", action.activities)
-      return {...state,
-        activities: [...state.activities, action.activities]
-      };
+      return [...state, action.activities];
     // case ADD_ACTIVITY:
     //   console.log(action.activity)
     //   return {...state,

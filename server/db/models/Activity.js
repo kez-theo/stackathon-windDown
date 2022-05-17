@@ -4,6 +4,8 @@ const db = require('../db')
 const Activity = db.define('activity', {
   activityName: {
     type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
   },
   active: {
     type: Sequelize.BOOLEAN,

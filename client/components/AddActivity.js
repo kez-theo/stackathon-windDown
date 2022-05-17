@@ -18,10 +18,12 @@ const AddActivity = () => {
   dispatch(fetchRoutine())
   }, [])
 
+  console.log(routine)
+
   return (
     <>
       <div className="routine">
-        {!routine.id ? (
+        {!routine.length ? (
           <>
             <button 
               type="submit" 
@@ -31,18 +33,24 @@ const AddActivity = () => {
           </>
         ) : (
           <>
-          {routine.activities.map((activity) => {
-            return (
-              <div className="routine-item"  key={activity.id}>
-                  <button className={`${activity.active ? "selected" : ""}`}
-                    type="submit" 
-                    onClick={() => dispatch(updateActivity(activity))} 
-                    value={activity.id}
-                  >🗸</button>
-                <h2>{activity.activityName}</h2> 
-              </div>
-            )
-          })}
+            {routine.length === 0 ? (
+              <h2>Loading...</h2>
+            ) : (
+              <>
+              {routine.map((activity) => {
+                return (
+                  <div className="routine-item"  key={activity.activityId}>
+                      <button className={`${activity.active ? "selected" : ""}`}
+                        type="submit" 
+                        onClick={() => dispatch(updateActivity(activity))} 
+                        value={activity.activityId}
+                      >🗸</button>
+                    <h2>{activity.activityName}</h2> 
+                  </div>
+                )
+              })}
+            </>
+            )}
           </>
         )}
       </div>

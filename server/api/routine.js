@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { models: { User, Activity, Routine} } = require("../db");
+const { models: { User, Activity, Routine, RoutineActivity} } = require("../db");
 const { requireToken } = require("./gatekeepingMiddleware");
 module.exports = router;
 
@@ -9,18 +9,14 @@ router.get("/", requireToken, async (req, res, next) => {
       where: {
         userId: req.user.id
       },
-      attributes: ["id","bedtime"],
-      include: [
-        {
-          model: Activity,
-          attributes: ["id", "activityName", "active", "duration", "time"],
-          through: { attributes: [] },
-          required: true
-        },
-      ],
     });
-    if (routine) {
-      res.json(routine);
+    const routineActivities = await RoutineActivity.findAll({
+      where: {
+        routineId: routine.id,
+      },
+    });
+    if (routineActivities) {
+      res.json(routineActivities);
     } 
   } catch (err) {
     next(err);
@@ -37,6 +33,7 @@ router.post("/", requireToken, async (req, res, next) => {
       include: [
         {
           model: Activity,
+          as: 'activity',
           attributes: ["id", "activityName", "active", "duration", "time"],
           through: { attributes: [] },
           required: true
@@ -48,7 +45,8 @@ router.post("/", requireToken, async (req, res, next) => {
     if (!routine) {
       const newRoutine = await Routine.create()
       newRoutine.setUser(req.user.id)
-      newRoutine.addActivities(activities)
+      newRoutine.addActivity(activities)
+      console.log(newRoutine)
       res.json(newRoutine);
     } else {
       console.log("Add to routine!");
@@ -102,15 +100,13 @@ router.put("/:id", requireToken, async (req, res, next) => {
       where: {
         userId: req.user.id,
       },
-      attributes: ["id", "bedtime"],
-      include: [{
-        model: Activity,
-        where: {
-          id: req.params.id
-        }
-      }]
     });
-    const activity = routine.activities[0]
+    const activity = await RoutineActivity.findOne({
+      where: {
+        routineId: routine.id,
+        activityId: req.params.id,
+      },
+    });
     if (!activity.active) {
       await activity.update({
         active: true 
