@@ -12,10 +12,6 @@ const Navbar = () => {
 
   const isLoggedIn = !!auth.id
 
-  // useEffect(() => {
-  //   dispatch(loadCart())
-  // }, []);
-
   const handleClick = () => {
     dispatch(logout())
   }
@@ -41,10 +37,7 @@ const Navbar = () => {
             <div>
               <NavLink className="navItem" to="/my-room">my room</NavLink>
               <NavLink className="navItem" to="/edit">edit</NavLink>
-              {/* <NavLink className="navItem" to="/my-room" onClick={openSidenav}>edit routine</NavLink> */}
-              {/* <button className="navItem" onClick={openSidenav}>routine</button> */}
-              <span className="navItem" onClick={openSidenav} >routine</span>
-              {/* <span className="navItem" onClick={openSidenav} >edit time</span> */}
+              {/* <span className="navItem" onClick={openSidenav} >routine</span> */}
               <RoutineSidebar name={"Hello Moon!"} width={width} closeNav={closeSidenav}/>
               <NavLink className="navItem" to="/#" onClick={handleClick}>logout</NavLink>
             </div>

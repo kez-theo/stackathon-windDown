@@ -20,7 +20,7 @@ const AddActivity = () => {
 
   return (
     <>
-      <div className="routine">
+      <div>
         {!routine.length ? (
           <>
             <button 
@@ -33,21 +33,21 @@ const AddActivity = () => {
             {!routine || routine.length === 0 ? (
               <h2>Loading...</h2>
             ) : (
-              <>
+              <div >
               {routine.map((activity) => {
                 return (
-                  <div className="routine-item"  key={activity.activityId}>
-                      <button className={`${activity.active ? "selected" : ""}`}
-                        type="submit" 
-                        onClick={() => dispatch(updateActivity(activity))} 
-                        value={activity.activityId}
-                        id={activity.activityId}
-                      >🗸</button>
-                    <h2>{activity.activityName}</h2> 
-                  </div>
+                  <div className="activity-item" key={activity.activityId}>
+                    <button className={`${activity.active ? "selected" : ""}`}
+                      type="submit" 
+                      onClick={() => dispatch(updateActivity(activity))} 
+                      value={activity.activityId}
+                      id={activity.activityId}
+                    >🗸</button>
+                    <h2  className="activity-text">{activity.activityName}</h2>
+                  </div> 
                 )
               })}
-            </>
+            </div>
             )}
           </>
         )}

@@ -29,7 +29,6 @@ input {
   display: flex;
   border-color: #fff;
   border-radius: 8px;
-  /* margin-bottom: 30px; */
   background-color: #1a0949;
 }
 
@@ -81,12 +80,16 @@ button:hover {
   display: flex;
   height: 40%;
   width: 40%;
-  /* flex-direction: column;
-  justify-content: center;
-  align-items: center; */
 }
 
+.activity-item {
+  margin-bottom: 20px;
+}
 
+.activity-text {
+  display: inline;
+  margin: 20px;
+}
 
 .routine {
   display: inline-flex;
@@ -103,24 +106,20 @@ button:hover {
   align-items: center;
 }
 
-.column {
-  display: flex;
-}
-
 table {
   table-layout: auto;
-  width: 100%;
+  width: 80%;
 }
 
 tr {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   color: white;
 }
 
 td {
   padding-left: 30px;
-  padding-right: 30px;
+  /* padding-right: 30px; */
   padding-bottom: 30px;
 }
 

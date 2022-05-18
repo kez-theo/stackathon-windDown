@@ -13,8 +13,6 @@ class ThreeSky extends React.Component {
     var scene = new THREE.Scene();
     scene.background = new THREE.Color( 0x1a0949 );
 
-    // scene.fog = new THREE.FogExp2(0xffffff, 0.02)
-
     //>>>"eyes" we will be viewing our scene from
     //>>>camera position needs to be moved away from origin
     var camera = new THREE.OrthographicCamera( window.innerWidth / - 100, window.innerWidth / 100, window.innerHeight / 100, window.innerHeight / - 100, 1, 1000 );
