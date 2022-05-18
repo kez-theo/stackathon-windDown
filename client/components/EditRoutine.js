@@ -1,18 +1,10 @@
-// import React from 'react'
-// import { connect } from "react-redux";
-// import { addActivity, removeActivity, fetchRoutine } from "../store/routine";
-// import { fetchActivities } from "../store/activities";
-// import AddActivity from './AddActivity';
-// import { withRouter} from 'react-router'
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRoutine } from "../store/routine";
-import axios from "axios";
 
 const EditRoutine = () => {
 
   const dispatch = useDispatch()
-
   const routine = useSelector((state) => state.routineReducer)
 
   useEffect(() => {
