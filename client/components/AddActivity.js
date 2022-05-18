@@ -5,13 +5,17 @@ import { createRoutine, updateActivity, fetchRoutine } from "../store/routine";
 const AddActivity = () => {
 
   const dispatch = useDispatch()
+  const [activities, setActivities] = useState([])
   const routine = useSelector((state) => state.routineReducer)
 
   useEffect(() => {
-    dispatch(fetchRoutine())
+    const fetchActivities = async () => {
+      const { data: activities } = await axios.get("/api/activities")
+      setActivities(activities)
+    };
+  fetchActivities()
+  dispatch(fetchRoutine())
   }, [])
-
-  console.log(routine)
 
   return (
     <>
