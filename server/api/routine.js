@@ -89,7 +89,6 @@ router.put("/:activityId", requireToken, async (req, res, next) => {
       })
     }
     await activity.save()
-    // routine.setActivities(activity.id)
     res.json(activity)
   } catch (err) {
     next(err);

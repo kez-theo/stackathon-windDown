@@ -6,7 +6,7 @@
 // import { withRouter} from 'react-router'
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { addActivity, removeActivity, fetchRoutine } from "../store/routine";
+import { fetchRoutine } from "../store/routine";
 import axios from "axios";
 
 const EditRoutine = () => {
@@ -41,12 +41,6 @@ const EditRoutine = () => {
                     <td>
                       <button type="submit">Edit Time</button>
                     </td>
-                    {/* <td>
-                      <button 
-                        onClick={() => this.props.deleteActivity(activity.id)}>
-                        ✖
-                      </button>
-                    </td>        */}
                   </tr>
                 ))}
               </tbody>

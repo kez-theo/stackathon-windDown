@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer"
 
 // CUBE
 export const getBox = (w, h, d, color) => {
@@ -106,4 +107,34 @@ export const getPointLight = (color, intensity, distance, decay) => {
   light.castShadow = true;
   light.shadow.radius= 8
   return light;
+}
+
+//>>>>>>>> 2D OBJECTS <<<<<<<<<<//
+
+// export const ToolTip = () => {
+//   var textDiv = document.createElement('div');
+//   textDiv.className = 'label';
+
+//   textDiv.textContent = "hello";
+//   textDiv.style.marginTop = '-1em';
+//   textDiv.style.color = "white";
+//   var textLabel = new CSS2DObject(textDiv);
+//   textLabel.position.set(0, 1, 0);
+//   textLabel.visible=false
+
+//   return textLabel
+// }
+
+
+export const ToolTip = () => {
+  var textDiv = document.createElement('div');
+  textDiv.className = 'label';
+
+  textDiv.textContent = "";
+  textDiv.style.marginTop = '3em';
+  textDiv.style.color = "white";
+  var textLabel = new CSS2DObject(textDiv);
+  textLabel.position.set(0, 1, 0);
+
+  return textLabel
 }

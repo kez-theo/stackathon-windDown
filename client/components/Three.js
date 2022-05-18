@@ -1,6 +1,7 @@
 import React from 'react'
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { CSS2DRenderer, CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer"
 import * as model from './threeHelpers'
 import { room } from './ThreeRoom';
 
@@ -27,6 +28,12 @@ class Three extends React.Component {
     var renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setClearColor( 0x000000, 0);
 
+    //>>>renderer that will render 2D Objects
+    var labelRenderer = new CSS2DRenderer();
+    labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    labelRenderer.domElement.style.position = 'absolute';
+    labelRenderer.domElement.style.top = '0px';
+
     //>>>cast shadows
     renderer.shadowMap.enabled = true;
     //>>>set size of the render output
@@ -51,20 +58,21 @@ class Three extends React.Component {
     // Bedtime Routine Objects
     var yogaMat = model.getCylinder(0xFF00B8, .25, .25, 2.5, 10)
     yogaMat.position.set(-5.5, yogaMat.geometry.parameters.height/2, 4.5)
+    yogaMat.name = "stretch"
     
     var book = model.getBox(1, .25, .75, 0x00FFE0)
     book.position.set(-3.5, 1.85, 0)
     book.rotation.y = -45;
+    book.name = "read"
+    
+
+    var label = model.ToolTip()
 
     //Add items to the scene
     scene.add( room )
-    // scene.add( sky.moon )
-
-    // for (let j = 0; j < sky.stars.length; j++) {
-    //   scene.add( sky.stars[j] );
-    // }
-
+    scene.add( label )
     
+
     scene.add( yogaMat )
     scene.add( book )
 
@@ -76,9 +84,8 @@ class Three extends React.Component {
     
     var selectedObject = null
 
-
     //Create Hover and OnClick Events
-    const onClick = (event) => {
+    const onClick = (evt) => {
       raycaster.setFromCamera(pointer, camera);
       let intersects = raycaster.intersectObjects(objects);
       if (intersects.length > 0) {
@@ -101,11 +108,33 @@ class Three extends React.Component {
       const intersects = raycaster.intersectObjects(objects)
       for (let i = 0; i < intersects.length; i++) {
         intersects[ i ].object.material.emissive.set( 0xd411c4 );
+        label.element.textContent=intersects[ i ].object.name
       }
     }
+
+    const hasToolTip = () => {
+      for (let i = 0; i < objects.length; i++) {
+        if (!objects[i]) {
+          objects[i] === selectedObject 
+          ? label.element.textContent=objects[i].name
+          : label.element.textContent=""
+        }
+      }
+    }
+
+    // const resetToolTip = () => {
+    //   raycaster.setFromCamera(pointer, camera);
+    //   const intersects = raycaster.intersectObjects(objects)
+    //   for (let i = 0; i < intersects.length; i++) {
+    //     label.element.textContent=intersects[ i ].object.name  
+    //   }
+    // }
     
-    var controls = new OrbitControls(camera, renderer.domElement);
+    var controls = new OrbitControls(camera, labelRenderer.domElement, renderer.domElement);
+
+
     
+      
     window.addEventListener( 'resize', onWindowResize );
     window.addEventListener( 'pointermove', onPointerMove );
     window.addEventListener('click', onClick )
@@ -113,10 +142,13 @@ class Three extends React.Component {
     //>>>to display scene, the DOM Element for the renderer needs to be appended to our HTML content
     //>>>the renderer gets mounted to this component
     this.mount.appendChild( renderer.domElement );
+    this.mount.appendChild(labelRenderer.domElement);
 
     const animate = () => {
       requestAnimationFrame( animate )
       renderer.render(scene, camera, controls)
+      labelRenderer.render( scene, camera );
+      hasToolTip()
       resetColor()
       hoverPieces();
     }
@@ -133,3 +165,22 @@ class Three extends React.Component {
 }
 
 export default Three;
+
+
+// const hasToolTip = () => {
+//   for (let i = 0; i < objects.length; i++) {
+//     if (objects[i].name) {
+//       objects[i] === selectedObject 
+//       ? scene.add( model.ToolTip(objects[i].name) )
+//       : scene.remove( model.ToolTip(objects[i].name) )
+//     }
+//   }
+// }
+
+// const resetToolTip = () => {
+//   raycaster.setFromCamera(pointer, camera);
+//   const intersects = raycaster.intersectObjects(objects)
+//   for (let i = 0; i < intersects.length; i++) {
+//     scene.remove( model.ToolTip(intersects[ i ].object.name) )
+//   }
+// }

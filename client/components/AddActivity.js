@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { createRoutine, updateActivity, fetchRoutine } from "../store/routine";
+import axios from 'axios';
 
 const AddActivity = () => {
 
@@ -25,7 +26,6 @@ const AddActivity = () => {
             <button 
               type="submit" 
               onClick={() => dispatch(createRoutine(activities))} 
-              // value={activity.id}
             >Create Routine</button>
           </>
         ) : (

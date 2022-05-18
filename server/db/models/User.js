@@ -72,49 +72,6 @@ const hashPassword = async(user) => {
   }
 }
 
-//move to a route
-// const addRoutine = async(user) => {
-//   const routine = await Routine.create()
-//   routine.setUser(user)
-// }
-
 User.beforeCreate(hashPassword)
 User.beforeUpdate(hashPassword)
 User.beforeBulkCreate(users => Promise.all(users.map(hashPassword)))
-
-// User.afterCreate(addRoutine)
-// User.afterBulkCreate(users => Promise.all(users.map(addRoutine)))
-
-
-// bedtime: {
-//   type: Sequelize.TIME,
-//   defaultValue: 11:30
-// },
-// bedtimeHour: {
-//   type: Sequelize.INTEGER,
-//   allowNull: false,
-//   defaultValue: 0,
-//   validate: { 
-//     min: 0, 
-//     max: 24 
-//   }
-// },
-// bedtimeMin: {
-//   type: Sequelize.INTEGER,
-//   allowNull: false,
-//   defaultValue: 00,
-//   validate: { 
-//     min: 0, 
-//     max: 60 
-//   }
-// }
-
-// bedtime: {
-//   type: Sequelize.INTEGER,
-//   allowNull: false,
-//   defaultValue: 1340,
-//   validate: { 
-//     min: 0, 
-//     max: 1440 
-//   }
-// }
