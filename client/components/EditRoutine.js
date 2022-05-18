@@ -24,7 +24,7 @@ const EditRoutine = () => {
   return (
     <>
       <div  className="container">
-        {!routine.activities || routine.activities.length === 0  ? (
+        {!routine || routine.length === 0  ? (
           <div>
             <h2>Add Activities to Create your Routine</h2>
           </div>
@@ -32,15 +32,19 @@ const EditRoutine = () => {
           <div>
             <table>
               <tbody>
-                {routine.activities.map((activity) => (
+                {routine.map((activity) => (
                   <tr key={activity.id}>
-                    <td>{activity.activityName}</td>
-                    <td>
-                      <input placeholder="Enter Time" name="duration" type="text" value={activity.duration} />
-                    </td>
-                    <td>
-                      <button type="submit">Edit Time</button>
-                    </td>
+                    {activity.active && (
+                      <>
+                        <td>{activity.activityName}</td>
+                        <td>
+                          <input placeholder="Enter Time" name="duration" type="text" value={activity.duration} />
+                        </td>
+                        <td>
+                          <button type="submit">Edit Time</button>
+                        </td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
