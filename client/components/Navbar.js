@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {Link, NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
-import RoutineSidebar from './RoutineSideBar';
+// import RoutineSidebar from './RoutineSideBar';
 
 const Navbar = () => {
 
@@ -38,7 +38,7 @@ const Navbar = () => {
               <NavLink className="navItem" to="/my-room">my room</NavLink>
               <NavLink className="navItem" to="/edit">edit</NavLink>
               {/* <span className="navItem" onClick={openSidenav} >routine</span> */}
-              <RoutineSidebar name={"Hello Moon!"} width={width} closeNav={closeSidenav}/>
+              {/* <RoutineSidebar name={"Hello Moon!"} width={width} closeNav={closeSidenav}/> */}
               <NavLink className="navItem" to="/#" onClick={handleClick}>logout</NavLink>
             </div>
           </div>
