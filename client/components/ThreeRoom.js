@@ -15,6 +15,7 @@ wall2.position.set(-6.5, wall2.geometry.parameters.height/2, -0.5)
 
 // Room Furniture
 var dressingTable = model.getBox(1.5, 2, 1.5, 0xFF00B8)
+var recordTable = model.getBox(1.5, 2.5, 1.5, 0x7000FF)
 var bed = model.getBox(4, 1.5, 8, 0xFF00B8)
 var sheets = model.getBox(4.25, 1, 8.25, 0xFFC700)
 var pillow = model.getBox(3.5, .5, 2, 0x7000FF)
@@ -24,6 +25,7 @@ var lampShade = model.getCylinderNoShadow(0xFFC700, .25, .5, .75, 10)
 
 //positions
 dressingTable.position.set(0, dressingTable.geometry.parameters.height/2, -5)
+recordTable.position.set(-5, recordTable.geometry.parameters.height/2, 5)
 bed.position.set(-4, bed.geometry.parameters.height/2, -2)
 sheets.position.set(0.15, sheets.geometry.parameters.height/2, 0.2)
 pillow.position.set(0, 1.25, -3)
@@ -66,5 +68,6 @@ room.add(wall1)
 room.add(wall2)
 room.add( bed );
 room.add( dressingTable );
+room.add( recordTable );
 room.add( lampBase );
 room.add( pointLight )
