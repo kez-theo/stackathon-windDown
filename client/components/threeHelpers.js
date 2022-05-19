@@ -99,6 +99,17 @@ export const getPlane = (w, d, color) => {
   return plane;
 }
 
+// TORUS
+export const getTorus = (radius, tube, radialSegments, tubularSegments, arc, color) => {
+  var geometry = new THREE.TorusGeometry( radius, tube, radialSegments, tubularSegments, arc );
+  var material = new THREE.MeshStandardMaterial({ 
+    color: color,
+  });
+  var torus = new THREE.Mesh( geometry, material );
+  torus.receiveShadow = true;
+  return torus;
+}
+
 //>>>>>>>> LIGHT <<<<<<<<<<//
 
 // POINT LIGHT
@@ -110,21 +121,6 @@ export const getPointLight = (color, intensity, distance, decay) => {
 }
 
 //>>>>>>>> 2D OBJECTS <<<<<<<<<<//
-
-// export const ToolTip = () => {
-//   var textDiv = document.createElement('div');
-//   textDiv.className = 'label';
-
-//   textDiv.textContent = "hello";
-//   textDiv.style.marginTop = '-1em';
-//   textDiv.style.color = "white";
-//   var textLabel = new CSS2DObject(textDiv);
-//   textLabel.position.set(0, 1, 0);
-//   textLabel.visible=false
-
-//   return textLabel
-// }
-
 
 export const ToolTip = () => {
   var textDiv = document.createElement('div');
