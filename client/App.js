@@ -4,6 +4,9 @@ import Three from './components/Three'
 import Navbar from './components/Navbar'
 import Routes from './Routes'
 
+
+
+
 const App = () => {
   return (
   <div className='background'>

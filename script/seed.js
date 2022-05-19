@@ -15,38 +15,44 @@ async function seed() {
     User.create({ username: 'timmy', password: '123'}),
   ]);
   const activities = await Promise.all([
-    Activity.create({ activityName: 'stretch', duration: '30', time: 0}),
-    Activity.create({ activityName: 'read book', duration: '45', time: 0}),
-    Activity.create({ activityName: 'fold laundry', duration: '15', time: 0}),
-    Activity.create({ activityName: 'knit', duration: '30', time: 0}),
-    Activity.create({ activityName: 'chat to friend', duration: '30', time: 0}),
+    Activity.create({ activityName: 'read', time: 0}),
+    Activity.create({ activityName: 'prep for tomorrow', time: 0}),
+    Activity.create({ activityName: 'listen to music', time: 0}),
+    Activity.create({ activityName: 'tend to plants', time: 0}),
+    Activity.create({ activityName: 'meditate', time: 0}),
+    Activity.create({ activityName: 'stretch', time: 0}),
   ]);
-  const [
-    cody,
-    murphy,
-  ] = users;
-  const [
-    stretch,
-    readBook,
-    foldLaundry,
-    knit,
-    chatToFriend
-  ] = activities;
-  await foldLaundry.setUser(murphy)
-  await stretch.setUser(cody)
-  await knit.setUser(murphy)
-  await chatToFriend.setUser(murphy)
-  await readBook.setUser(cody)
+  // const [
+  //   cody,
+  //   murphy,
+  //   timmy,
+  // ] = users;
+  // const [
+  //   read,
+  //   prep,
+  //   music,
+  //   plants,
+  //   meditate,
+  //   stretch
+  // ] = activities;
+  // await read.setUser(murphy)
+  // await prep.setUser(cody)
+  // await music.setUser(murphy)
+  // await plants.setUser(murphy)
+  // await meditate.setUser(cody)
+  // await stretch.setUser(murphy)
+  // await stretch.setUser(cody)
   
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${activities.length} users`)
+  console.log(`seeded ${activities.length} activities`)
   console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
+  // return {
+  //   users: {
+  //     cody: users[1],
+  //     murphy: users[2],
+  //     timmy: users[3]
+  //   }
+  // }
 }
 
 /*

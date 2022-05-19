@@ -1,61 +1,104 @@
-import React from 'react'
-import { connect } from "react-redux";
-import { createActivity } from "../store/activities";
-import { withRouter } from 'react-router'
+import React, {useEffect, useState} from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { createRoutine, updateActivity, fetchRoutine } from "../store/routine";
+import axios from 'axios';
 
-class AddActivity extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      activityName: "",
-      duration: ""
+const AddActivity = () => {
+
+  const dispatch = useDispatch()
+  const [activities, setActivities] = useState([])
+  const routine = useSelector((state) => state.routineReducer)
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      const { data: activities } = await axios.get("/api/activities")
+      setActivities(activities)
     };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+  fetchActivities()
+  dispatch(fetchRoutine())
+  }, [])
 
-  handleChange(evt) {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    });
-  }
-
-  handleSubmit(evt) {
-    evt.preventDefault();
-    this.props.createActivity({ ...this.state })
-  }
-
-  render() {
-    const { activityName, duration } = this.state;
-    const { handleSubmit, handleChange } = this;
-
-    return (
-      <>
-        <div>
-          <form  className="routine" name="add-activity" onSubmit={handleSubmit}>
-            <div>
-              <input placeholder="Enter Activity" type="text" name="activityName" onChange={handleChange} value={activityName} />
+  return (
+    <>
+      <div>
+        {!routine.length ? (
+          <>
+            <button 
+              type="submit" 
+              onClick={() => dispatch(createRoutine(activities))} 
+            >Create Routine</button>
+          </>
+        ) : (
+          <>
+            {!routine || routine.length === 0 ? (
+              <h2>Loading...</h2>
+            ) : (
+              <div >
+              {routine.map((activity) => {
+                return (
+                  <div className="activity-item" key={activity.activityId}>
+                    <button className={`${activity.active ? "selected" : ""}`}
+                      type="submit" 
+                      onClick={() => dispatch(updateActivity(activity))} 
+                      value={activity.activityId}
+                      id={activity.activityId}
+                    >🗸</button>
+                    <h2  className="activity-text">{activity.activityName}</h2>
+                  </div> 
+                )
+              })}
             </div>
-            <div>
-              <input placeholder="Enter Time" name="duration" type="text" onChange={handleChange} value={duration} />
-            </div>
-            <div className="container">
-              <button type="submit">Add</button>
-            </div>
-            {/* {error && error.response && <h4 style={{display: 'flex', justifyContent: 'center'}}> {error.response.data} </h4>} */}
-          </form>
-        </div>
-      </>
-    )
-  }
+            )}
+          </>
+        )}
+      </div>
+    </>
+  )
 }
 
-const mapState = (state) => ({
-  routine: state.routineReducer
-});
+export default AddActivity;
 
-const mapDispatch = (dispatch) => ({
-  createActivity: (activity) => dispatch(createActivity(activity)),
-});
 
-export default withRouter(connect(mapState, mapDispatch)(AddActivity));
+// import React, {useEffect, useState} from 'react'
+// import { useDispatch, useSelector } from "react-redux";
+// import { createRoutine, updateActivity, fetchRoutine } from "../store/routine";
+
+// const AddActivity = () => {
+
+//   const dispatch = useDispatch()
+//   const routine = useSelector((state) => state.routineReducer)
+
+//   useEffect(() => {
+//     dispatch(fetchRoutine())
+//   }, [])
+
+//   console.log(routine)
+
+//   return (
+//     <>
+//       <div className="routine">
+//         {routine[0]===undefined || routine.length === 0 ? (
+//           <h2>Loading...</h2>
+//         ) : (
+//           <>
+//             {routine.map((activity) => {
+//               return (
+//                 <div className="routine-item"  key={activity.activityId}>
+//                     <button className={`${activity.active ? "selected" : ""}`}
+//                       type="submit" 
+//                       onClick={() => dispatch(updateActivity(activity))} 
+//                       value={activity.activityId}
+//                       id={activity.activityId}
+//                     >🗸</button>
+//                   <h2>{activity.activityName}</h2> 
+//                 </div>
+//               )
+//             })}
+//           </>
+//         )}
+//       </div>
+//     </>
+//   )
+// }
+
+// export default AddActivity;

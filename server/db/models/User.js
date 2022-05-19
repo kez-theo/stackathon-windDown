@@ -2,11 +2,11 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
-const axios = require('axios');
+const Activity = require('./Activity')
 
 const SALT_ROUNDS = 5;
 
-const User = db.define('user', {
+const User = db.define('users', {
   username: {
     type: Sequelize.STRING,
     unique: true,
@@ -75,37 +75,3 @@ const hashPassword = async(user) => {
 User.beforeCreate(hashPassword)
 User.beforeUpdate(hashPassword)
 User.beforeBulkCreate(users => Promise.all(users.map(hashPassword)))
-
-
-// bedtime: {
-//   type: Sequelize.TIME,
-//   defaultValue: 11:30
-// },
-// bedtimeHour: {
-//   type: Sequelize.INTEGER,
-//   allowNull: false,
-//   defaultValue: 0,
-//   validate: { 
-//     min: 0, 
-//     max: 24 
-//   }
-// },
-// bedtimeMin: {
-//   type: Sequelize.INTEGER,
-//   allowNull: false,
-//   defaultValue: 00,
-//   validate: { 
-//     min: 0, 
-//     max: 60 
-//   }
-// }
-
-// bedtime: {
-//   type: Sequelize.INTEGER,
-//   allowNull: false,
-//   defaultValue: 1340,
-//   validate: { 
-//     min: 0, 
-//     max: 1440 
-//   }
-// }

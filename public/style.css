@@ -1,5 +1,5 @@
 * {
-  font-family: 'Century Gothic', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -24,6 +24,14 @@ body {
   z-index: 9;
 }
 
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
 .container-nav {
   position: relative;
   display: flex;
@@ -41,23 +49,16 @@ body {
   align-items: center;
 }
 
-.container-three {
-  display: flex;
+.container-right {
   position: relative;
-  position: absolute;
-  margin-left: 20%
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  margin-right: 20px;
 }
 
-a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-  background-color : transparent;
-  color: #fff;
-  font-size: 20px;
-  padding-bottom: 10px;
+.container-sidenav {
+  display: inline;
 }
 
 nav {
@@ -75,130 +76,12 @@ nav {
   color: #7000FF;
 }
 
-form div {
-  margin: 1em;
-  align-content: center;
-}
-
-input {
-  display: flex;
-  border-color: #fff;
-  border-radius: 8px;
-  margin-bottom: 30px;
-  background-color: #1a0949;
-}
-
-input[type="password"], input[type="text"], textarea {
-  background-color : transparent;
-  color: #fff;
-  height: 40px;
-  font-size: 25px;
-  background-color: #1a0949;
-}
-
-input::placeholder {
-  color: #7000FF;
-  font-style: italic;
-  padding-left: 5px;
-}
-
-button {
-  border-radius: 5px;
-  border-color: #fff;
-  background-color : transparent;
-  font-size: 20px;
-  color: #fff;
-  height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  transition-duration: 0.4s;
-}
-
-button:hover {
-  border-color: #7000FF;
-  background-color : #7000FF;
-  color: #fff;
-}
-
-.three-vw {
-  position: relative;
-  display: flex;
-  height: 40%;
-  width: 40%;
-  /* flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-}
-
-.row {
-  display: flex;
-}
-
-.column-60 {
-  margin-left: 200px;
-  overflow: hidden;
-  position: absolute
-}
-
-.column-40 {
-  z-index: 9;
-  margin-left: 100px;
-}
-
-
-.routine {
-  display: inline-flex;
-}
-
-.routine-item {
-  display: inline-flex;
-  padding-right: 20px;
-  margin-right: 20px;
-}
-
-.column {
-  display: flex;
-}
-
 h1, h2, h3, h4, h5, h6, p {
   font-weight:  bolder;
   color: #fff;
 }
 
 h1.title {
-  font-size: 60px;
-}
-
-table {
-  table-layout: auto;
-  width: 100%;
-}
-
-tr {
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-}
-
-td {
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 30px;
-}
-
-table.room {
-  table-layout: auto;
-  width: 100%;
-}
-
-tr.room {
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-}
-
-td.room {
-  padding-left: 0px;
-  padding-right: 20px;
-  padding-top: 20px;
+  font-size: 80px;
+  font-weight: 100;
 }
