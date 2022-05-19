@@ -48,6 +48,7 @@ const Navbar = () => {
             <div>
               <NavLink className="navItem" to="/login">login</NavLink>
               <NavLink className="navItem" to="/signup">sign up</NavLink>
+              <NavLink className="navItem" to="/room">view room</NavLink>
             </div>
           </div>
         )}
