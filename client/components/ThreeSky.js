@@ -1,5 +1,5 @@
 import React from 'react'
-import * as THREE from "../../node_modules/@types/three/index";
+import * as THREE from "../../node_modules/three";
 
 class ThreeSky extends React.Component {
   constructor(props) {
