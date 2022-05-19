@@ -56,31 +56,49 @@ class Three extends React.Component {
     }
 
     // Bedtime Routine Objects
-    var yogaMat = model.getCylinder(0xFF00B8, .25, .25, 2.5, 10)
-    yogaMat.position.set(-5.5, yogaMat.geometry.parameters.height/2, 4.5)
+    var yogaMat = model.getBox(2.5, .05, 7, 0xFF00B8)
+    yogaMat.position.set( 3.5, yogaMat.geometry.parameters.height/2, 1.5)
     yogaMat.name = "stretch"
     
     var book = model.getBox(1, .25, .75, 0x00FFE0)
     book.position.set(-3.5, 1.85, 0)
     book.rotation.y = -45;
     book.name = "read"
-    
+
+    var cushion = model.getTorus( .3, .45, 30, 30, 10, 0xdb9dfc)
+    cushion.rotation.x = Math.PI/2;
+    cushion.position.set(0, .35, -2)
+    cushion.name = "meditate"
+
+    var potBase = model.getCylinder(0x7000FF, .5, .25, .75, 10)
+    var leaves = model.getCylinder(0x00FFE0, 0, .75, 2, 15)
+    potBase.position.set(4, potBase.geometry.parameters.height/2, -5)
+    leaves.position.set(4, 1.85, -5)
+    leaves.name = "tend to plants"
+
+    var plant = new THREE.Group();
+
+    plant.add(potBase)
+    plant.add(leaves)
 
     var label = model.ToolTip()
 
     //Add items to the scene
     scene.add( room )
     scene.add( label )
-    
 
     scene.add( yogaMat )
     scene.add( book )
+    scene.add( cushion )
+    scene.add( plant )
 
     //Create Array for Interactive Objects
     var objects = [];
 
     objects.push( yogaMat );
     objects.push( book );
+    objects.push( cushion );
+    objects.push( leaves );
     
     var selectedObject = null
 
