@@ -56,31 +56,57 @@ class Three extends React.Component {
     }
 
     // Bedtime Routine Objects
+    //yoga mat
     var yogaMat = model.getBox(2.5, .05, 7, 0xFF00B8)
     yogaMat.position.set( 3.5, yogaMat.geometry.parameters.height/2, 1.5)
     yogaMat.name = "stretch"
     
+    //book
     var book = model.getBox(1, .25, .75, 0x00FFE0)
     book.position.set(-3.5, 1.85, 0)
     book.rotation.y = -45;
     book.name = "read"
 
+    //meditation cushion
     var cushion = model.getTorus( .3, .45, 30, 30, 10, 0xdb9dfc)
     cushion.rotation.x = Math.PI/2;
     cushion.position.set(0, .35, -2)
     cushion.name = "meditate"
 
+    //plant
     var potBase = model.getCylinder(0x7000FF, .5, .25, .75, 10)
     var leaves = model.getCylinder(0x00FFE0, 0, .75, 2, 15)
-    potBase.position.set(4, potBase.geometry.parameters.height/2, -5)
-    leaves.position.set(4, 1.85, -5)
+    potBase.position.set(2.5, potBase.geometry.parameters.height/2, -5)
+    leaves.position.set(2.5, 1.85, -5)
     leaves.name = "tend to plants"
 
     var plant = new THREE.Group();
-
     plant.add(potBase)
     plant.add(leaves)
 
+    //record table
+    var recordStand = model.getBox(1.3, .5, 1.3, 0xFFC700)
+    recordStand.position.set(-5, (recordStand.geometry.parameters.height/2) + 2.5, 5)
+    var rec = model.getCylinder(0xFF00B8, .6, .6, .1, 12 )
+    rec.position.set(-5, (recordStand.geometry.parameters.height/2) + 2.8, 5)
+    rec.name = "listen to music"
+
+    var records = new THREE.Group();
+    records.add(recordStand)
+    records.add(rec)
+
+    //backpack
+    var bag = model.extrudeBox(1.25, .75, 0x00FFE0)
+    bag.rotation.y = Math.PI/2;
+    bag.position.set(-1.6, .1, 1.5)
+    var pouch = model.getBox(.75, .6, .1, 0x00FFE0)
+    pouch.position.set(.4, pouch.geometry.parameters.height/2, .5)
+    bag.add(pouch)
+
+    bag.name = "prep for tomorrow"
+    pouch.name = "prep for tomorrow"
+
+    //tooltip text
     var label = model.ToolTip()
 
     //Add items to the scene
@@ -91,6 +117,8 @@ class Three extends React.Component {
     scene.add( book )
     scene.add( cushion )
     scene.add( plant )
+    scene.add( records )
+    scene.add( bag )
 
     //Create Array for Interactive Objects
     var objects = [];
@@ -99,6 +127,9 @@ class Three extends React.Component {
     objects.push( book );
     objects.push( cushion );
     objects.push( leaves );
+    objects.push( rec );
+    objects.push( bag );
+    objects.push( pouch );
     
     var selectedObject = null
 

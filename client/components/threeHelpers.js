@@ -110,6 +110,43 @@ export const getTorus = (radius, tube, radialSegments, tubularSegments, arc, col
   return torus;
 }
 
+// CIRCLE - MESH BASIC
+export const getCircle = (color, radius, segments) => {
+  const geometry = new THREE.CircleGeometry( radius, segments );
+  var material = new THREE.MeshBasicMaterial ({
+    color: color
+  })
+  var circle = new THREE.Mesh( geometry, material );
+  return circle;
+}
+
+// EXTRUDED BOX
+export const extrudeBox = (width, length, color) => {
+  var shape = new THREE.Shape();
+  shape.moveTo( 0,0 );
+  shape.lineTo( 0, width );
+  shape.lineTo( length, width );
+  shape.lineTo( length, 0 );
+  shape.lineTo( 0, 0 );
+
+  const extrudeSettings = {
+    steps: 1,
+    depth: .25,
+    bevelEnabled: true,
+    bevelThickness: .2,
+    bevelSize: .2,
+    bevelOffset: 0,
+    bevelSegments: 6
+  }  
+
+  var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+  var material = new THREE.MeshStandardMaterial( { color: color } );
+  var bag = new THREE.Mesh( geometry, material );
+  bag.receiveShadow = true;
+  return bag
+}
+
+
 //>>>>>>>> LIGHT <<<<<<<<<<//
 
 // POINT LIGHT
