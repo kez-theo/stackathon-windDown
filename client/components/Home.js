@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { me  } from '../store/auth'
-import UserRoutine from './UserRoutine'
 import Three from './Three'
-import RoutineSidebar from './RoutineSideBar';
 
 /**
  * COMPONENT
@@ -30,7 +28,7 @@ const Home = (state) => {
        {/* <div className='container'>
           <button className="navItem" onClick={openSidenav}>routine</button>
        </div>
-      <RoutineSidebar name={"Hello Moon!"} width={width} closeNav={closeSidenav}/> */}
+      <RoutineSidebar name={"Good Evening!"} width={width} closeNav={closeSidenav}/> */}
       <Three />
     </div>
   )
