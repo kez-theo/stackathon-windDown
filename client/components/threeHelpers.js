@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer"
+import * as THREE from "../../node_modules/@types/three/index";
+import { CSS2DObject } from "../../node_modules/@types/three/examples/jsm/renderers/CSS2DRenderer";
 
 // CUBE
 export const getBox = (w, h, d, color) => {

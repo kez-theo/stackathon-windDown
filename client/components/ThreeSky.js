@@ -1,7 +1,5 @@
 import React from 'react'
-import * as THREE from 'three';
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import * as model from './threeHelpers'
+import * as THREE from "../../node_modules/@types/three/index";
 
 class ThreeSky extends React.Component {
   constructor(props) {
@@ -31,6 +29,7 @@ class ThreeSky extends React.Component {
     var moon = model.getMoon(0xdb9dfc, 3, 32)
     moon.position.set(-10, 4, 0)
     moon.rotation.x = Math.PI
+    
     var stars = [];
 
     //>>>create star field
@@ -59,7 +58,7 @@ class ThreeSky extends React.Component {
     scene.add( pointLight )
 
     //Animation
-    var opacity = 0;
+    // var opacity = 0;
 
     // function twinkle() {
     //   for (let k = 0; k < stars.length; k++) {
