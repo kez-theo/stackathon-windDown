@@ -31,7 +31,6 @@ pillow.position.set(0, 1.25, -3)
 lampShade.position.set(0, .75, 0)
 lampBase.position.set(0, 2.5, -5)
 
-
 // Scene Lighting
 var pointLight = model.getPointLight(0xFFFFFF, 1, 2, 2)
 var sphere = model.getSphere(0xFFFFFF, .2, 24)

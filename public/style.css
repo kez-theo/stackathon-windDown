@@ -58,7 +58,7 @@ body {
 }
 
 .container-sidenav {
-  display: inline-block;
+  display: inline;
 }
 
 nav {
