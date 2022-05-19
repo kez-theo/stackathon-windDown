@@ -2,11 +2,7 @@ import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
-import Routine from './components/UserRoutine'
-import RoutineSidebar from './components/RoutineSideBar';
-import AddActivity from './components/AddActivity'
 import Three from './components/Three'
-// import ThreeSandbox from './components/ThreeSandbox'
 import EditRoutine from './components/EditRoutine'
 import Home from './components/Home';
 import {me} from './store'

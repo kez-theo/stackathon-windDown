@@ -1,6 +1,5 @@
 import React from 'react'
 import ThreeSky from '../client/components/ThreeSky'
-import Three from './components/Three'
 import Navbar from './components/Navbar'
 import Routes from './Routes'
 
