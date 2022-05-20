@@ -1,7 +1,7 @@
 import React from 'react'
-import * as THREE from '../../node_modules/three/examples/js';
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { CSS2DRenderer } from "three/examples/jsm/renderers/CSS2DRenderer"
+import * as THREE from '/build/three.module.js';
+import { OrbitControls } from '/build/three.module.js';
+import { CSS2DRenderer } from '/build/three.module.js';
 import * as model from './threeHelpers'
 import { room } from './ThreeRoom';
 
