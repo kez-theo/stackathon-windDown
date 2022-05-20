@@ -1,6 +1,6 @@
-import * as THREE from 'three';
-// import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer"
-import { CSS2DObject } from '/build/three.module.js'
+import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+import { CSS2DObject } from 'https://unpkg.com/three/examples/jsm/renderers/CSS2DRenderer';
+
 // CUBE
 export const getBox = (w, h, d, color) => {
   var geometry = new THREE.BoxGeometry( w, h, d );
