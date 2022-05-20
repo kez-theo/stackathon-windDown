@@ -58,7 +58,7 @@ class ThreeSky extends React.Component {
     scene.add( pointLight )
 
     //Animation
-    var opacity = 0;
+    // var opacity = 0;
 
     // function twinkle() {
     //   for (let k = 0; k < stars.length; k++) {
