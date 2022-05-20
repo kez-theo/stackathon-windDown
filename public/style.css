@@ -26,10 +26,11 @@ body {
 
 .row {
   display: flex;
+  margin-top: 5%;
 }
 
 .column {
-  flex: 50%;
+  display: inline;
 }
 
 .container-nav {
