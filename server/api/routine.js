@@ -95,6 +95,31 @@ router.put("/:activityId", requireToken, async (req, res, next) => {
   }
 });
 
+//update time from user's routine
+router.put("/:activityId/duration", requireToken, async (req, res, next) => {
+  try {
+    const activity = await RoutineActivity.findOne({
+      where: {
+        userId: req.user.id,
+        activityId: req.params.activityId,
+      },
+    });
+    if (!activity.active) {
+      await activity.update({
+        active: true 
+      })
+    } else {
+      await activity.update({
+        active: false
+      })
+    }
+    await activity.save()
+    res.json(activity)
+  } catch (err) {
+    next(err);
+  }
+});
+
 //Will need to use a token to modify data in the future. Look at file auth/index.
 router.delete("/:id", async (req, res, next) => {
   try {

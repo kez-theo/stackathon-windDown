@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRoutine } from "../store/routine";
+import { fetchRoutine, updateDuration } from "../store/routine";
 import AddActivity from './AddActivity';
 
 const EditRoutine = () => {
@@ -28,7 +28,7 @@ const EditRoutine = () => {
               </div>
             ) : (
               <div>
-                <table>
+                <table className='room'>
                   <tbody>
                     {routine.map((activity) => (
                       <tr key={activity.id}>
@@ -39,7 +39,10 @@ const EditRoutine = () => {
                               <input placeholder="Enter Time" name="duration" type="text" value={activity.duration} />
                             </td>
                             <td>
-                              <button type="submit">Edit</button>
+                              <button 
+                              type="submit"
+                              onClick={() => dispatch(updateDuration(activity))}
+                              >Edit</button>
                             </td>
                           </>
                         )}
