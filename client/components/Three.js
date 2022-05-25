@@ -52,7 +52,7 @@ class Three extends React.Component {
 
     const onPointerMove = ( event ) => {
       pointer.x = ( event.clientX / window.innerWidth  ) * 2 - 1;
-      pointer.y = - ( (event.clientY -200) / window.innerHeight) * 2 + 1;
+      pointer.y = - ( (event.clientY - 160) / window.innerHeight) * 2 + 1;
     }
 
     // Bedtime Routine Objects
