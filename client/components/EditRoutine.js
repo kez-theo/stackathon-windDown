@@ -54,7 +54,7 @@ const EditRoutine = () => {
                               <input 
                                 id={activity.id}
                                 name="duration" 
-                                type="text"
+                                type="integer"
                                 placeholder={activity.duration} 
                                 value={values.duration}
                                 onChange={handleChange} 
