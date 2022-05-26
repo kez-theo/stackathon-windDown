@@ -28,7 +28,7 @@ class ThreeSky extends React.Component {
     
     // Scene Geometry
     var moon = model.getMoon(0xdb9dfc, 3, 32)
-    moon.position.set(10, 2.5, 0)
+    moon.position.set(10, 3, 0)
     moon.rotation.x = Math.PI
     var stars = [];
 

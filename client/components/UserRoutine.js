@@ -13,6 +13,7 @@ class Routine extends React.Component {
     return (
       <>
         <div>
+          <h2>Good Evening!</h2>
           {routine.length < 1 ? (
             <div>
               <h3>Create your Bedtime Routine</h3>
@@ -25,8 +26,12 @@ class Routine extends React.Component {
               <table className='room'>
                 {routine.map((activity) => (
                   <tr className='room' key={activity.id}>
-                    <td className='room'>{activity.activityName}</td>
-                    <td className='room'>{activity.duration} minutes</td>  
+                    {activity.active && (
+                      <>
+                        <td className='room'>{activity.activityName}</td>
+                        <td className='room'>{activity.duration} min</td>
+                      </>
+                    )}  
                   </tr>
                 ))}
               </table>

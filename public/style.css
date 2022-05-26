@@ -24,6 +24,10 @@ body {
   z-index: 9;
 }
 
+.row-home {
+  display: flex;
+}
+
 .row {
   display: flex;
   margin-top: 5%;
@@ -31,6 +35,17 @@ body {
 
 .column {
   display: inline;
+}
+
+.column-40 {
+  z-index: 9;
+  margin-left: 60px;
+}
+
+.column-60 {
+  overflow: hidden;
+  position: absolute;
+  margin-left: 60px;
 }
 
 .nav-brand {
