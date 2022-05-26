@@ -7,12 +7,27 @@ const EditRoutine = () => {
 
   const dispatch = useDispatch()
   const routine = useSelector((state) => state.routineReducer)
+  const [values, setValues] = useState({
+    duration: '',
+  });
 
   useEffect(() => {
     dispatch(fetchRoutine())
   }, [])
 
-  console.log(routine)
+  const handleChange = (evt) => {
+    evt.persist();
+    setValues((values) => ({ 
+      ...values,
+      duration: evt.target.value }))
+  };
+
+  const handleSubmit = (evt) => {
+    evt.persist();
+    setValues((values) => ({ 
+      ...values,
+      duration: evt.target.value }))
+  };
 
   return (
     <>
@@ -36,7 +51,14 @@ const EditRoutine = () => {
                           <>
                             <td>{activity.activityName}</td>
                             <td>
-                              <input placeholder="Enter Time" name="duration" type="text" value={activity.duration} />
+                              <input 
+                                id={activity.id}
+                                name="duration" 
+                                type="text"
+                                placeholder={activity.duration} 
+                                value={values.duration}
+                                onChange={handleChange} 
+                              />
                             </td>
                             <td>
                               <button 

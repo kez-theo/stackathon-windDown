@@ -104,17 +104,10 @@ router.put("/:activityId/duration", requireToken, async (req, res, next) => {
         activityId: req.params.activityId,
       },
     });
-    if (!activity.active) {
-      await activity.update({
-        active: true 
-      })
-    } else {
-      await activity.update({
-        active: false
-      })
-    }
-    await activity.save()
-    res.json(activity)
+    const updatedActivity = await activity.update(req.body)
+    console.log(req.body)
+    await updatedActivity.save()
+    res.json(updatedActivity)
   } catch (err) {
     next(err);
   }

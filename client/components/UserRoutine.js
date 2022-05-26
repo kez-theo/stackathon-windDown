@@ -24,6 +24,7 @@ class Routine extends React.Component {
           ) : (
             <div>
               <table className='room'>
+              <tbody>
                 {routine.map((activity) => (
                   <tr className='room' key={activity.id}>
                     {activity.active && (
@@ -34,6 +35,7 @@ class Routine extends React.Component {
                     )}  
                   </tr>
                 ))}
+              </tbody>
               </table>
             </div>
           )}
