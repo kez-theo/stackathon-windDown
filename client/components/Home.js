@@ -22,7 +22,6 @@ const Home = (state) => {
           <UserRoutine />
         </div>
         <div className="column-60">
-          hello
           <Three />
         </div>
       </div>

@@ -7,26 +7,20 @@ const EditRoutine = () => {
 
   const dispatch = useDispatch()
   const routine = useSelector((state) => state.routineReducer)
-  const [values, setValues] = useState({
-    duration: '',
-  });
+  
+  const [duration, setDuration] = useState('');
 
   useEffect(() => {
     dispatch(fetchRoutine())
   }, [])
 
   const handleChange = (evt) => {
-    evt.persist();
-    setValues((values) => ({ 
-      ...values,
-      duration: evt.target.value }))
+    setDuration(evt.target.value)
   };
 
-  const handleSubmit = (evt) => {
-    evt.persist();
-    setValues((values) => ({ 
-      ...values,
-      duration: evt.target.value }))
+  const handleSubmit = (evt, activity) => {
+    evt.preventDefault();
+    dispatch(updateDuration({...activity, duration}))
   };
 
   return (
@@ -45,7 +39,7 @@ const EditRoutine = () => {
               <div>
                 <table className='room'>
                   <tbody>
-                    {routine.map((activity) => (
+                    {routine.map((activity) => 
                       <tr key={activity.id}>
                         {activity.active && (
                           <>
@@ -56,20 +50,20 @@ const EditRoutine = () => {
                                 name="duration" 
                                 type="integer"
                                 placeholder={activity.duration} 
-                                value={values.duration}
+                                value={duration.duration}
                                 onChange={handleChange} 
                               />
                             </td>
                             <td>
                               <button 
                               type="submit"
-                              onClick={() => dispatch(updateDuration(activity))}
+                              onClick={(evt) => handleSubmit(evt, activity)}
                               >Edit</button>
                             </td>
                           </>
                         )}
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>

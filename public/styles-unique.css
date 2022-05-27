@@ -21,7 +21,7 @@ input {
   background-color: #1a0949;
 }
 
-input[type="password"], input[type="text"], textarea {
+input[type="password"], input[type="text"], input[type="integer"], textarea {
   background-color : transparent;
   color: #fff;
   height: 40px;
