@@ -10,7 +10,8 @@ const AuthForm = props => {
 
   return (
     <>
-      <div className='container'>
+      <div className='login-card'>
+        <h2>Welcome!</h2>
         <form onSubmit={handleSubmit} name={name}>
           <div>
             <input placeholder="Enter Username" name="username" type="text" />

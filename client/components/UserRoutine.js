@@ -17,7 +17,7 @@ class Routine extends React.Component {
           {routine.length < 1 ? (
             <div>
               <h3>Create your Bedtime Routine</h3>
-              <Link to="edit-routine">
+              <Link to="edit">
                 <button>Create</button>
               </Link>
           </div> 

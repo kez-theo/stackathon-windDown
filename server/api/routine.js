@@ -48,28 +48,6 @@ router.post("/", requireToken, async (req, res, next) => {
   }
 });
 
-// router.post("/", requireToken, async (req, res, next) => {
-//   try {
-//     console.log("req.body", req.body)
-//     const routineActivity = await Activity.findByPk(req.body.id) 
-//     const routine = await Routine.findOne({ 
-//       attributes: ["id", "bedtime"],
-//       include: [
-//         {
-//           model: Activity,
-//           attributes: ["id", "activityName", "duration", "time"],
-//           through: { attributes: [] },
-//         },
-//       ],
-//     });
-//     console.log("routine activity", routineActivity)
-//     routine.addActivity(routineActivity.id)
-//     res.json(routineActivity)
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 //add or delete items from user's routine
 router.put("/:activityId", requireToken, async (req, res, next) => {
   try {
@@ -105,7 +83,6 @@ router.put("/:activityId/duration", requireToken, async (req, res, next) => {
       },
     });
     const updatedActivity = await activity.update(req.body)
-    console.log(req.body)
     await updatedActivity.save()
     res.json(updatedActivity)
   } catch (err) {
@@ -113,13 +90,3 @@ router.put("/:activityId/duration", requireToken, async (req, res, next) => {
   }
 });
 
-//Will need to use a token to modify data in the future. Look at file auth/index.
-router.delete("/:id", async (req, res, next) => {
-  try {
-    const activity = await Activity.findByPk(req.params.id);
-    await activity.destroy()
-    res.json(activity);
-  } catch (err) {
-    next(err);
-  }
-});

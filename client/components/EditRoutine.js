@@ -33,7 +33,6 @@ const EditRoutine = () => {
           <div className='column'>
             {!routine || routine.length === 0  ? (
               <div>
-                <h2>Add Activities to Create your Routine</h2>
               </div>
             ) : (
               <div>
