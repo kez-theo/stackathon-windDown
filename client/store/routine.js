@@ -95,7 +95,7 @@ export default function routineReducer(state = initialState, action) {
     case GET_ROUTINE:
       return action.routine;
     case CREATE_ROUTINE:
-      return [...state, action.activities];
+      return [...action.activities];
     case UPDATE_ACTIVITY:
       return state.map((activity) => {
         return (

@@ -4,30 +4,12 @@ const TOKEN = "token";
 
 //ACTIONS
 const GET_ACTIVITIES = "GET_ACTIVITIES";
-// const CREATE_ACTIVITY = "CREATE_ACTIVITY";
-// const UPDATE_ACTIVITY = "UPDATE_ACTIVITY";
-// const DELETE_ACTIVITY = "DELETE_ACTIVITY";
 
 //ACTION CREATORS
 export const getActivities = (activities) => ({
   type: GET_ACTIVITIES,
   activities,
 });
-
-// export const newRoutine = (activity) => ({
-//   type: CREATE_ACTIVITY,
-//   activity,
-// });
-
-// export const editRoutine = (activity) => ({
-//   type: UPDATE_ACTIVITY,
-//   id: activity.id,
-// });
-
-// export const removeActivity = (activity) => ({
-//   type: DELETE_ACTIVITY,
-//   activity,
-// });
 
 //THUNKS
 export const fetchActivities = () => {
