@@ -140,7 +140,7 @@ class Three extends React.Component {
 
 
     //Show objects based on Activities in Routine
-    //***Refactor to match async/await functions */
+    //***Refactor to match async/await functions ***/
     let promise = this.props.fetchRoutine()
     
     promise.then(routine => {
@@ -149,7 +149,7 @@ class Three extends React.Component {
       }, () => {
         this.state.routine.routine.map((activity) => {
           for (let object of objects) {
-            if (!activity.active && activity.activityName === object.name) {
+            if (!activity.active && activity.activityName === object.name || !this.state.routine.routine) {
                 object.visible = false
                 object.name = ""
             }
