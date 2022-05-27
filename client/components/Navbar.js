@@ -7,7 +7,6 @@ import {logout} from '../store'
 const Navbar = () => {
 
   const dispatch = useDispatch();
-  const [width, setWid] = useState("0%");
   const auth = useSelector((state) => state.auth);
 
   const isLoggedIn = !!auth.id
@@ -16,40 +15,23 @@ const Navbar = () => {
     dispatch(logout())
   }
 
-  const openSidenav = () => { 
-    setWid("30%")
-  }
-
-  const closeSidenav = ( ) => {
-    setWid("0%")
-  }
-
-
   return (
     <div className='container-nav'>
-      <div >
-        <h1 className='title'>wind down</h1>
-      </div>
       <nav>
+        <div className='nav-brand'>
+          <NavLink className="title" to="/">wind down</NavLink>
+        </div>
         {isLoggedIn ? (
-          <div >
-            {/* The navbar will show these links after you log in */}
-            <div>
+            <div className='container-nav-right'>
               <NavLink className="navItem" to="/my-room">my room</NavLink>
               <NavLink className="navItem" to="/edit">edit</NavLink>
-              {/* <span className="navItem" onClick={openSidenav} >routine</span> */}
-              {/* <RoutineSidebar name={"Hello Moon!"} width={width} closeNav={closeSidenav}/> */}
               <NavLink className="navItem" to="/#" onClick={handleClick}>logout</NavLink>
             </div>
-          </div>
         ) : (
-          <div >
-            {/* The navbar will show these links before you log in */}
-            <div>
-              <NavLink className="navItem" to="/login">login</NavLink>
-              <NavLink className="navItem" to="/signup">sign up</NavLink>
-              <NavLink className="navItem" to="/room">view room</NavLink>
-            </div>
+          <div className='container-nav-right'>
+            <NavLink className="navItem" to="/login">login</NavLink>
+            <NavLink className="navItem" to="/signup">sign up</NavLink>
+            <NavLink className="navItem" to="/room">view room</NavLink>
           </div>
         )}
       </nav>

@@ -1,18 +1,14 @@
 import React from 'react'
 import * as THREE from 'three';
-import { fetchRoutine } from "../store/routine";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { CSS2DRenderer } from "three/examples/jsm/renderers/CSS2DRenderer.js";
 import * as model from './threeHelpers'
 import { room } from './ThreeRoom';
 import { connect } from "react-redux";
 
-class Three extends React.Component {
+class ThreeLoggedOut extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-        routine: []
-    };
   }
   
   componentDidMount() {
@@ -59,7 +55,7 @@ class Three extends React.Component {
 
     const onPointerMove = ( event ) => {
       pointer.x = ( (event.clientX - 60) / window.innerWidth  ) * 2 - 1;
-      pointer.y = - ( (event.clientY -160) / window.innerHeight) * 2 + 1;
+      pointer.y = - ( (event.clientY - 160) / window.innerHeight) * 2 + 1;
     }
 
     // Bedtime Routine Objects
@@ -138,26 +134,6 @@ class Three extends React.Component {
     objects.push( bag );
     objects.push( pouch );
 
-
-    //Show objects based on Activities in Routine
-    //***Refactor to match async/await functions */
-    let promise = this.props.fetchRoutine()
-    
-    promise.then(routine => {
-      this.setState({
-        routine: routine
-      }, () => {
-        this.state.routine.routine.map((activity) => {
-          for (let object of objects) {
-            if (!activity.active && activity.activityName === object.name) {
-                object.visible = false
-                object.name = ""
-            }
-          }
-        })
-      })
-    })
-
     var selectedObject = null
 
     //Create Hover and OnClick Events
@@ -230,14 +206,4 @@ class Three extends React.Component {
   }
 }
 
-// export default Three;
-
-const mapState = (state) => ({
-  routine: state.routine
-});
-
-const mapDispatch = (dispatch) => ({
-  fetchRoutine: () => dispatch(fetchRoutine()),
-});
-
-export default connect(mapState, mapDispatch)(Three);
+export default ThreeLoggedOut;

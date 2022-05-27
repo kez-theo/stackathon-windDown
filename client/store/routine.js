@@ -8,6 +8,7 @@ const initialState = []
 const GET_ROUTINE = "GET_ROUTINE";
 const CREATE_ROUTINE = "CREATE_ROUTINE";
 const UPDATE_ACTIVITY = "UPDATE_ACTIVITY";
+const UPDATE_DURATION = "UPDATE_DURATION";
 
 //ACTION CREATORS
 export const getRoutine = (routine) => ({
@@ -22,6 +23,11 @@ export const setRoutine = (activities) => ({
 
 export const editActivity = (activity) => ({
   type: UPDATE_ACTIVITY,
+  activity
+});
+
+export const editDuration = (activity) => ({
+  type: UPDATE_DURATION,
   activity
 });
 
@@ -68,6 +74,20 @@ export const updateActivity = (activity) => {
   }
 }
 
+export const updateDuration = (activity) => {
+  return async (dispatch) => {
+    const token = window.localStorage.getItem(TOKEN);
+    if (token) {
+      const { data: updatedActivity } = await axios.put(`/api/routine/${activity.activityId}/duration`, activity, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(editDuration(updatedActivity));
+    }
+  }
+}
+
 //REDUCER
 
 export default function routineReducer(state = initialState, action) {
@@ -77,6 +97,11 @@ export default function routineReducer(state = initialState, action) {
     case CREATE_ROUTINE:
       return [...state, action.activities];
     case UPDATE_ACTIVITY:
+      return state.map((activity) => {
+        return (
+          activity.activityId === action.activity.activityId ? action.activity : activity
+        )});
+    case UPDATE_DURATION:
       return state.map((activity) => {
         return (
           activity.activityId === action.activity.activityId ? action.activity : activity

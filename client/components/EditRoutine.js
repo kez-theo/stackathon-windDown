@@ -1,18 +1,33 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRoutine } from "../store/routine";
+import { fetchRoutine, updateDuration } from "../store/routine";
 import AddActivity from './AddActivity';
 
 const EditRoutine = () => {
 
   const dispatch = useDispatch()
   const routine = useSelector((state) => state.routineReducer)
+  const [values, setValues] = useState({
+    duration: '',
+  });
 
   useEffect(() => {
     dispatch(fetchRoutine())
   }, [])
 
-  console.log(routine)
+  const handleChange = (evt) => {
+    evt.persist();
+    setValues((values) => ({ 
+      ...values,
+      duration: evt.target.value }))
+  };
+
+  const handleSubmit = (evt) => {
+    evt.persist();
+    setValues((values) => ({ 
+      ...values,
+      duration: evt.target.value }))
+  };
 
   return (
     <>
@@ -28,7 +43,7 @@ const EditRoutine = () => {
               </div>
             ) : (
               <div>
-                <table>
+                <table className='room'>
                   <tbody>
                     {routine.map((activity) => (
                       <tr key={activity.id}>
@@ -36,10 +51,20 @@ const EditRoutine = () => {
                           <>
                             <td>{activity.activityName}</td>
                             <td>
-                              <input placeholder="Enter Time" name="duration" type="text" value={activity.duration} />
+                              <input 
+                                id={activity.id}
+                                name="duration" 
+                                type="integer"
+                                placeholder={activity.duration} 
+                                value={values.duration}
+                                onChange={handleChange} 
+                              />
                             </td>
                             <td>
-                              <button type="submit">Edit</button>
+                              <button 
+                              type="submit"
+                              onClick={() => dispatch(updateDuration(activity))}
+                              >Edit</button>
                             </td>
                           </>
                         )}
